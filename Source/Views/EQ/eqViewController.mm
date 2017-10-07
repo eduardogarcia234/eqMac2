@@ -12,16 +12,20 @@
 
 @property (strong) IBOutlet NSButton *deleteButton;
 @property (strong) IBOutlet NSButton *saveButton;
+@property (strong) IBOutlet NSButton *bandModeButton;
 
+@property (strong) IBOutlet NSButton *bandsButton;
+@property (strong) IBOutlet NSPopUpButton *outputDevicePopup;
+@property (strong) IBOutlet NSPopUpButton *presetsPopup;
+@property (strong) IBOutlet NSView *bandLabelsView;
 @property (strong) IBOutlet NSView *mockSliderView;
-@property (weak) IBOutlet NSComboBox *presetsComboBox;
-@property (strong) IBOutlet NSButton *presetsButton;
 @end
 
 
 NSArray *bandArray;
 SliderGraphView *sliderView;
 NSNotificationCenter *notify;
+NSString* BAND_MODE = @"31";
 
 @implementation eqViewController
 
@@ -31,23 +35,48 @@ NSNotificationCenter *notify;
     sliderView = [[SliderGraphView alloc] initWithFrame: _mockSliderView.frame];
     _mockSliderView = nil;
     [self.view addSubview:sliderView];
-    
-    [_presetsComboBox setDelegate:self];
-    [_presetsComboBox setStringValue:@""];
-    
+        
     notify = [NSNotificationCenter defaultCenter];
     [notify addObserver:self selector:@selector(sliderGraphChanged) name:@"sliderGraphChanged" object:nil];
-    [notify addObserver:self selector:@selector(populatePresetComboBox) name:@"showDefaultPresetsChanged" object:nil];
-
-    [self populatePresetComboBox];
+    [notify addObserver:self selector:@selector(populatePresetsPopup) name:@"showDefaultPresetsChanged" object:nil];
+    
+    NSString *previouslySelectedBandMode = [Storage get:kStorageSelectedBandMode];
+    if (previouslySelectedBandMode && [@[@"10", @"31"] containsObject:previouslySelectedBandMode]){
+        BAND_MODE = previouslySelectedBandMode;
+    }
+    
+    [self populateBandLabelsView];
+    [self populatePresetsPopup];
+    [self populateOutputDevicePopup];
+    
     NSString *selectedPresetsName = [Storage get:kStorageSelectedPresetName];
-    if(selectedPresetsName) [_presetsButton setTitle:selectedPresetsName];
+    if(selectedPresetsName) [_presetsPopup setTitle:selectedPresetsName];
+}
+
+-(void)populateBandLabelsView{
+    [_bandLabelsView setSubviews:@[]];
+    NSArray *frequencies = [Constants getEQFrequenciesForBandMode: BAND_MODE];
+    NSPoint labelPosition = NSMakePoint(0, 0);
+    CGFloat labelWidth = 33;
+    CGFloat posIncrement = _bandLabelsView.bounds.size.width / frequencies.count;
+    for (NSDictionary *frequency in frequencies) {
+        NSTextField *label = [[NSTextField alloc] initWithFrame:NSMakeRect(labelPosition.x, labelPosition.y, labelWidth, 14)];
+        [label setFont: [NSFont systemFontOfSize: [BAND_MODE isEqualToString:@"10"] ? 11 : 9]];
+        [label setAlignment:NSCenterTextAlignment];
+        [label setStringValue:[frequency objectForKey:@"title"]];
+        [label setBordered:NO];
+        [label setEditable:NO];
+        [label setSelectable:NO];
+        [label setDrawsBackground:NO];
+        [_bandLabelsView addSubview:label];
+        labelPosition.x += posIncrement;
+    }
 }
 
 -(void)viewWillAppear{
-    [Utilities executeBlock:^{ [self openPresetsDropdown:nil]; } after:0.1];
     [_deleteButton setImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"deleteLight.png"] : [NSImage imageNamed:@"deleteDark.png"]];
     [_saveButton setImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"saveLight.png"] : [NSImage imageNamed:@"saveDark.png"]];
+    [_outputDevicePopup setTitle: [Devices getDeviceNameByID: [EQHost EQEngineExists] ? [EQHost getSelectedOutputDeviceID] : [Devices getCurrentDeviceID]]];
 }
 
 -(void)viewDidAppear{
@@ -56,44 +85,46 @@ NSNotificationCenter *notify;
     } after:.1];
 }
 
--(void)viewDidDisappear{
-    [_presetsComboBox setHidden:NO];
+-(void)populateOutputDevicePopup{
+    [_outputDevicePopup removeAllItems];
+    NSArray *devices = [Devices getUsableDevicesNames];
+    [_outputDevicePopup addItemsWithTitles:[devices sortedArrayUsingComparator:^NSComparisonResult(NSString *firstString, NSString *secondString) {
+        return [[firstString lowercaseString] compare:[secondString lowercaseString]];
+    }]];
 }
 
 #pragma mark -
 #pragma mark Presets logic
 
--(void)populatePresetComboBox{
-    [_presetsComboBox removeAllItems];
+-(void)populatePresetsPopup{
+    [_presetsPopup removeAllItems];
     NSArray *presets = [Presets getShowablePresetsNames];
-    [_presetsComboBox addItemsWithObjectValues:[presets sortedArrayUsingComparator:^NSComparisonResult(NSString *firstString, NSString *secondString) {
+    [_presetsPopup addItemsWithTitles:[presets sortedArrayUsingComparator:^NSComparisonResult(NSString *firstString, NSString *secondString) {
         return [[firstString lowercaseString] compare:[secondString lowercaseString]];
     }]];
-    [_presetsComboBox setNumberOfVisibleItems:[presets count]];
 }
 
-- (IBAction)changePreset:(NSComboBox *)sender {
-    NSString *presetName = [sender itemObjectValueAtIndex:[sender indexOfSelectedItem]];
+- (IBAction)changePreset:(NSPopUpButton *)sender {
+    NSString *presetName = [sender titleOfSelectedItem];
     NSArray *gains = [Presets getGainsForPreset:presetName];
     [sliderView animateBandsToValues:gains];
     [EQHost setEQEngineFrequencyGains:gains];
-    [_presetsButton setTitle:presetName];
+    [_presetsPopup setTitle:presetName];
 }
 
 - (IBAction)savePreset:(NSButton *)sender {
     NSString *newPresetName = [Utilities showAlertWithInputAndTitle:NSLocalizedString(@"Please enter a name for your new preset.",nil)];
     if(![newPresetName isEqualToString:@""]){
         [Presets savePreset:[sliderView getBandValues] withName:newPresetName];
-        [self populatePresetComboBox];
-        [_presetsButton setTitle:newPresetName];
+        [self populatePresetsPopup];
     }
 }
 
 - (IBAction)deletePreset:(id)sender {
-    if(![[_presetsButton title] isEqualToString:NSLocalizedString(@"Flat",nil)]){
-        [Presets deletePresetWithName:[_presetsButton title]];
-        [_presetsButton setTitle:@"Preset"];
-        [self populatePresetComboBox];
+    if(![[_presetsPopup title] isEqualToString:NSLocalizedString(@"Flat",nil)]){
+        [Presets deletePresetWithName:[_presetsPopup title]];
+        [self populatePresetsPopup];
+        [_presetsPopup setTitle:NSLocalizedString(@"Flat",nil)];
         [self resetEQ:nil];
     }
 }
@@ -102,41 +133,45 @@ NSNotificationCenter *notify;
 #pragma mark -
 #pragma mark UI Actions
 -(void)sliderGraphChanged{
-    [_presetsButton setTitle:NSLocalizedString(@"Custom",nil)];
+    [_presetsPopup setTitle:NSLocalizedString(@"Custom",nil)];
     [EQHost setEQEngineFrequencyGains:[sliderView getBandValues]];
 }
 
+- (IBAction)changeDevice:(NSPopUpButton *)sender {
+    NSString *deviceName = [sender titleOfSelectedItem];
+    [Devices switchToDeviceWithID:[Devices getDeviceIDByName:deviceName]];
+}
+
 - (IBAction)resetEQ:(id)sender {
-    [_presetsButton setTitle:NSLocalizedString(@"Flat",nil)];
-    NSArray *flatGains = @[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0];
+    [_presetsPopup setTitle:NSLocalizedString(@"Flat",nil)];
+    NSArray *flatGains = @[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0,@0];
     [sliderView animateBandsToValues:flatGains];
     [EQHost setEQEngineFrequencyGains:flatGains];
 }
 
--(IBAction)openPresetsDropdown:(NSButton*)sender{
-    if([_presetsComboBox isHidden]){
-        [_presetsComboBox setStringValue:@""];
-        [_presetsComboBox setHidden:NO];
-        [_presetsComboBox.cell performSelector:@selector(popUp:)];
-    }else{
-        [_presetsComboBox setHidden:YES];
+-(NSString*)getSelectedPresetName{
+    return [_presetsPopup title];
+}
+
+-(void)setBandModeButtonText{
+    if ([BAND_MODE isEqualToString:@"10"]) {
+        [_bandModeButton setTitle:@"31 Bands"];
+    } else if ([BAND_MODE isEqualToString:@"31"]) {
+        [_bandModeButton setTitle:@"10 Bands"];
     }
 }
-
--(void)comboBoxWillDismiss:(NSNotification *)notification{
-    [_presetsComboBox setHidden:YES];
-}
-
-- (IBAction)supportProject:(id)sender {
-    [Utilities openBrowserWithURL:SUPPORT_URL];
-}
-
--(NSString*)getSelectedPresetName{
-    return [_presetsButton title];
+- (IBAction)toggleBandMode:(id)sender {
+    if ([BAND_MODE isEqualToString:@"10"]) {
+        BAND_MODE = @"31";
+    } else if ([BAND_MODE isEqualToString:@"31"]) {
+        BAND_MODE = @"10";
+    }
+    [self setBandModeButtonText];
+    [sliderView setNSliders:[BAND_MODE intValue]];
 }
 
 -(void)setSelectedPresetName:(NSString*)name{
-    [_presetsButton setTitle:name];
+    [_presetsPopup setTitle:name];
 }
 
 @end

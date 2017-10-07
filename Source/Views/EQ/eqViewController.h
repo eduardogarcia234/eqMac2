@@ -15,8 +15,9 @@
 #import "Presets.h"
 #import "Devices.h"
 #import "API.h"
+#import <WebKit/WebKit.h>
 
-@interface eqViewController : NSViewController <NSComboBoxDelegate>
+@interface eqViewController : NSViewController
 -(NSString*)getSelectedPresetName;
 -(void)setSelectedPresetName:(NSString*)name;
 @end

@@ -48,7 +48,6 @@
 #ifndef __AudioDevice_h__
 #define __AudioDevice_h__
 
-
 #include <CoreServices/CoreServices.h>
 #include <CoreAudio/CoreAudio.h>
 

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:eqMac2Helper/eqMac2Helper.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:eqMac2.xcodeproj">
    </FileRef>
    <FileRef

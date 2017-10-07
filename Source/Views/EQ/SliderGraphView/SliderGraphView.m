@@ -11,6 +11,7 @@
 
 CGFloat knobSize;
 CGFloat sliderBarWidth;
+CGFloat padding;
 UInt nSliders;
 bool dragging;
 int sliderSelected;
@@ -33,8 +34,9 @@ NSMutableArray *bandValues;
 -(id)initWithFrame:(NSRect)frameRect{
     self = [super initWithFrame:frameRect];
     if(self){
-        nSliders = 10;
-        knobSize = 10;
+        nSliders = 31;
+        knobSize = 8;
+        padding = 5;
         sliderBarWidth = 3;
         dragging = false;
     }
@@ -42,19 +44,19 @@ NSMutableArray *bandValues;
 }
 
 
--(void)generateAssets{
+-(void)regenerateAssets{
     knobArray = [[NSMutableArray alloc] init];
     sliderBarArray = [[NSMutableArray alloc] init];
-    CGFloat x = 0;
+    CGFloat x = padding;
     CGFloat y = self.bounds.size.height/2 - knobSize/2;
-    CGFloat gap = (self.bounds.size.width - knobSize * nSliders) / (nSliders/2+1);
+    CGFloat gap = (self.bounds.size.width - padding * 2 - knobSize * nSliders) / (nSliders - 1) + knobSize;
     for(int i = 0; i < nSliders; i++){
         NSBezierPath *knob = [NSBezierPath bezierPathWithOvalInRect:CGRectMake(x, y, knobSize, knobSize)];
         [knobArray addObject:knob];
         [sliderBarArray addObject:[NSBezierPath bezierPathWithRect:CGRectMake(x + knobSize/2 - sliderBarWidth/2, 0, sliderBarWidth, self.bounds.size.height)]];
         x+=gap;
     }
-    middleLine = [NSBezierPath bezierPathWithRect:CGRectMake([[sliderBarArray firstObject] bounds].origin.x, self.bounds.size.height/2 - sliderBarWidth/4, [[sliderBarArray lastObject] bounds].origin.x + sliderBarWidth, sliderBarWidth/2)];
+    middleLine = [NSBezierPath bezierPathWithRect:CGRectMake([[sliderBarArray firstObject] bounds].origin.x, self.bounds.size.height/2 - sliderBarWidth/4, [[sliderBarArray lastObject] bounds].origin.x - sliderBarWidth, sliderBarWidth/2)];
     
     topBars = [[NSMutableArray alloc] init];
     bottomBars = [[NSMutableArray alloc] init];
@@ -73,7 +75,7 @@ NSMutableArray *bandValues;
 
 #pragma mark Drawing
 -(void)drawRect:(NSRect)dirtyRect {
-    if(!knobArray || !sliderBarArray) [self generateAssets];
+    if(!knobArray || !sliderBarArray) [self regenerateAssets];
     [super drawRect:dirtyRect];
     
     [graph addClip];
@@ -305,5 +307,9 @@ NSMutableArray *bandValues;
     return bandValues;
 }
 
+-(void)setNSliders:(int)n{
+    nSliders = n;
+    [self regenerateAssets];
+}
 
 @end

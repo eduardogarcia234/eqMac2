@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>16F73</string>
+	<string>17A365</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>eqMac2Driver</string>
+	<string>eqMacAudio</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.bitgapp.eqMac2Driver</string>
+	<string>com.bitgapp.eqMacAudio</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>CFBundleName</key>
-	<string>eqMac2Driver</string>
+	<string>eqMacAudio</string>
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,17 +29,17 @@
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>8E3004b</string>
+	<string>9A235</string>
 	<key>DTPlatformVersion</key>
 	<string>GM</string>
 	<key>DTSDKBuild</key>
-	<string>16E185</string>
+	<string>17A360</string>
 	<key>DTSDKName</key>
-	<string>macosx10.12</string>
+	<string>macosx10.13</string>
 	<key>DTXcode</key>
-	<string>0833</string>
+	<string>0900</string>
 	<key>DTXcodeBuild</key>
-	<string>8E3004b</string>
+	<string>9A235</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>PhantomAudioDriver</key>
@@ -50,7 +50,7 @@
 					<key>BlockSize</key>
 					<integer>8192</integer>
 					<key>Description</key>
-					<string>eqMac2</string>
+					<string>eqMac Audio</string>
 					<key>Formats</key>
 					<array>
 						<dict>
@@ -74,8 +74,6 @@
 							<integer>1819304813</integer>
 						</dict>
 					</array>
-					<key>IOAudioEngineIsHidden</key>
-					<integer>1</integer>
 					<key>NumBlocks</key>
 					<integer>2</integer>
 					<key>NumStreams</key>
@@ -92,13 +90,11 @@
 				</dict>
 			</array>
 			<key>CFBundleIdentifier</key>
-			<string>com.bitgapp.eqMac2Driver</string>
-			<key>IOAudioEngineIsHidden</key>
-			<integer>1</integer>
+			<string>com.bitgapp.eqMacAudio</string>
 			<key>IOClass</key>
-			<string>com_bitgapp_eqMac2Driver</string>
+			<string>com_bitgapp_eqMacAudio</string>
 			<key>IOMatchCategory</key>
-			<string>com_bitgapp_eqMac2Driver</string>
+			<string>com_bitgapp_eqMacAudio</string>
 			<key>IOProviderClass</key>
 			<string>IOResources</string>
 			<key>IOResourceMatch</key>

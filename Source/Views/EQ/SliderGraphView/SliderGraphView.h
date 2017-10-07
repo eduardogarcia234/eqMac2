@@ -13,5 +13,6 @@
 @interface SliderGraphView : NSView
 
 -(void)animateBandsToValues:(NSArray*)values;
+-(void)setNSliders:(int)n;
 -(NSArray*)getBandValues;
 @end

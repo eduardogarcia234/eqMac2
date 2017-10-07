@@ -25,6 +25,8 @@ return err; \
 @interface Devices : NSObject
 
 +(NSArray*)getAllDevices;
++(NSArray*)getDevices;
++(NSArray*)getUsableDevicesNames;
 
 +(AudioDeviceID)getCurrentDeviceID;
 +(AudioDeviceID)getEQMacDeviceID;
@@ -46,7 +48,6 @@ return err; \
 +(void)setBalanceForDevice:(AudioDeviceID)ID to:(Float32)balance;
 +(void)setDevice:(AudioDeviceID)ID toMuted:(BOOL)condition;
 
-+(BOOL)eqMacDriverInstalled;
-+(BOOL)legacyDriverInstalled;
++(BOOL)eqMacAudioInstalled;
 +(BOOL)deviceIsBuiltIn:(AudioDeviceID)ID;
 @end

@@ -65,6 +65,7 @@ if(err) {\
 #include "CARingBuffer.h"
 #include "AudioDevice.h"
 #include "CAStreamBasicDescription.h"
+#include "Constants.h"
 
 class EQEngine {
     
@@ -128,8 +129,10 @@ private:
     AudioUnit mVarispeedUnit;
     AUNode mFormatNode;
     AudioUnit mFormatUnit;
-    AUNode mEqualizerNode;
-    AudioUnit mEqualizerUnit;
+    AUNode mFirstEqualizerNode;
+    AudioUnit mFirstEqualizerUnit;
+    AUNode mSecondEqualizerNode;
+    AudioUnit mSecondEqualizerUnit;
     AUNode mOutputNode;
     AudioUnit mOutputUnit;
     
