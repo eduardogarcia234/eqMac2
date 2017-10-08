@@ -26,6 +26,7 @@ NSArray *bandArray;
 SliderGraphView *sliderView;
 NSNotificationCenter *notify;
 NSString* BAND_MODE = @"31";
+NSArray *devices;
 
 @implementation eqViewController
 
@@ -87,8 +88,15 @@ NSString* BAND_MODE = @"31";
 
 -(void)populateOutputDevicePopup{
     [_outputDevicePopup removeAllItems];
-    NSArray *devices = [Devices getUsableDevicesNames];
-    [_outputDevicePopup addItemsWithTitles:[devices sortedArrayUsingComparator:^NSComparisonResult(NSString *firstString, NSString *secondString) {
+    devices = [Devices getAllUsableDevices];
+    
+    NSMutableArray *deviceNames = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *device in devices) {
+        [deviceNames addObject: [device objectForKey:@"name"]];
+    }
+    
+    [_outputDevicePopup addItemsWithTitles: [deviceNames sortedArrayUsingComparator:^NSComparisonResult(NSString *firstString, NSString *secondString) {
         return [[firstString lowercaseString] compare:[secondString lowercaseString]];
     }]];
 }
@@ -139,7 +147,17 @@ NSString* BAND_MODE = @"31";
 
 - (IBAction)changeDevice:(NSPopUpButton *)sender {
     NSString *deviceName = [sender titleOfSelectedItem];
-    [Devices switchToDeviceWithID:[Devices getDeviceIDByName:deviceName]];
+    NSDictionary *selectedDevice;
+    
+    for (NSDictionary *device in devices) {
+        if ([[device objectForKey:@"name"] isEqualToString: deviceName]) {
+            selectedDevice = device;
+        }
+    }
+    
+    if (selectedDevice) {
+        [Devices switchToDeviceWithID:[[selectedDevice objectForKey:@"id"] intValue] ];
+    }
 }
 
 - (IBAction)resetEQ:(id)sender {

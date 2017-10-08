@@ -1,6 +1,7 @@
 
 #ifndef Constants_h
 #define Constants_h
+extern NSString * const DRIVER_UID;
 extern NSString * const DRIVER_NAME;
 extern NSString * const BUILTIN_DEVICE_NAME;
 extern NSString * const API_URL;

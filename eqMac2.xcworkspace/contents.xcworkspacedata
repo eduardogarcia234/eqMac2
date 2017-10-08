@@ -8,7 +8,7 @@
       location = "group:Driver.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/romanskisils/Documents/Personal/Programming/eqMac2/Helper.xcodeproj">
+      location = "group:Helper.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

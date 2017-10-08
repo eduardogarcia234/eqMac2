@@ -2,7 +2,8 @@
 #import <Foundation/Foundation.h>
 #import "Constants.h"
 
-NSString * const DRIVER_NAME = @"eqMac Audio";
+NSString * const DRIVER_UID = @"EQMAC2_DRIVER_ENGINE";
+NSString * const DRIVER_NAME = @"eqMac2";
 NSString * const BUILTIN_DEVICE_NAME = @"Built-in Device";
 NSString * const API_URL = @"https://eqmac-api.bitgapp.com";
 NSString * const APP_URL = @"https://bitgapp.com/eqmac/";

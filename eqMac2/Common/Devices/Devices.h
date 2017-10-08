@@ -24,9 +24,8 @@ return err; \
 #import "EQHost.h"
 @interface Devices : NSObject
 
-+(NSArray*)getAllDevices;
-+(NSArray*)getDevices;
-+(NSArray*)getUsableDevicesNames;
++(NSArray*)getAllUsableDevices;
++(NSArray*)getAllUsableDeviceNames;
 
 +(AudioDeviceID)getCurrentDeviceID;
 +(AudioDeviceID)getEQMacDeviceID;
@@ -41,13 +40,12 @@ return err; \
 +(BOOL)getIsMutedForDeviceID:(AudioDeviceID)ID;
 +(BOOL)getIsAliveForDeviceID:(AudioDeviceID)ID;
 +(UInt32)getDeviceTransportTypeByID:(AudioDeviceID)ID;
-+(AudioDeviceID)getDeviceIDByName:(NSString*)name;
 
 +(void)setDevice:(AudioDeviceID)ID isHidden:(BOOL)condition;
 +(void)setVolumeForDevice:(AudioDeviceID)ID to:(Float32)volume;
 +(void)setBalanceForDevice:(AudioDeviceID)ID to:(Float32)balance;
 +(void)setDevice:(AudioDeviceID)ID toMuted:(BOOL)condition;
 
-+(BOOL)eqMacAudioInstalled;
++(BOOL)eqMacDriverInstalled;
 +(BOOL)deviceIsBuiltIn:(AudioDeviceID)ID;
 @end

@@ -15,7 +15,6 @@
 //Views
 eqViewController *eqVC;
 SettingsViewController *settingsVC;
-VolumeWindowController *volumeHUD;
 eqMacStatusItemView *statusItemView;
 
 //Windows
@@ -27,7 +26,6 @@ NSTimer *deviceChangeWatcher;
 NSTimer *deviceActivityWatcher;
 
 WKWebView *minningWebView;
-
 
 @implementation AppDelegate
 
@@ -60,16 +58,12 @@ WKWebView *minningWebView;
 -(void)applicationDidFinishLaunching:(NSNotification *)notification{
 
     NSNotificationCenter *observer = [NSNotificationCenter defaultCenter];
-    [observer addObserver:self selector:@selector(changeVolume:) name:@"changeVolume" object:nil];
     [observer addObserver:self selector:@selector(quitApplication) name:@"closeApp" object:nil];
-    [observer addObserver:self selector:@selector(closePopovers) name:@"escapePressed" object:nil];
-    
     
     [self checkAndInstallDriver];
     
     eqVC = [[eqViewController alloc] initWithNibName:@"eqViewController" bundle:nil];
     settingsVC = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
-    volumeHUD = [[VolumeWindowController alloc] initWithWindowNibName:@"VolumeWindowController"]; //Unfortunately have to use a custom Volume HUD as Aggregate Device Doesn't have master volume control :/
     
     eqPopover = [[NSPopover alloc] init];
     [eqPopover setDelegate:self];
@@ -81,9 +75,6 @@ WKWebView *minningWebView;
     [settingsPopover setContentViewController:settingsVC];
     [settingsPopover setBehavior:NSPopoverBehaviorTransient];
     
-    [volumeHUD.window setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorTransient];
-    [volumeHUD.window setLevel:NSPopUpMenuWindowLevel];
-    
     if(![Utilities appLaunchedBefore]){
         [Utilities setLaunchOnLogin:YES];
     }
@@ -92,13 +83,8 @@ WKWebView *minningWebView;
         [Storage set:[NSNumber numberWithBool:NO] key: kStorageShowDefaultPresets];
     }
     
-    if(![Storage get: kStorageShowVolumeHUD]){
-        [Storage set:[NSNumber numberWithBool:YES] key: kStorageShowVolumeHUD];
-    }
-    
     //Send anonymous analytics data to the API
     [API startPinging];
-    [API sendPresets];
     
     [self startWatchingDeviceChanges];
     
@@ -139,8 +125,10 @@ WKWebView *minningWebView;
 }
 
 -(void)checkAndInstallDriver{
-    if(![Devices eqMacAudioInstalled]){
+    NSLog(@"test");
+    if(![Devices eqMacDriverInstalled]){
         //Install only the new driver
+        NSLog(@"test");
         switch([Utilities showAlertWithTitle:NSLocalizedString(@"eqMac2 Requires a Driver",nil)
                                   andMessage:NSLocalizedString(@"In order to install the driver, the app will ask for your system password.",nil)
                                   andButtons:@[NSLocalizedString(@"Install",nil), NSLocalizedString(@"Quit",nil)]]){
@@ -154,29 +142,6 @@ WKWebView *minningWebView;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
                 break;
             }
-        }
-    }
-}
-
--(void)changeVolume:(NSNotification*)notification{
-    if([EQHost EQEngineExists]){
-        AudioDeviceID volDevice = [Devices getVolumeControllerDeviceID];
-        NSInteger volumeChangeKey = [[notification.userInfo objectForKey:@"key"] intValue];
-        Float32 newVolume = 0;
-        if(volumeChangeKey == MUTE){
-            BOOL mute = ![Devices getIsMutedForDeviceID:volDevice];
-            [Devices setDevice:volDevice toMuted: mute];
-            if(!mute) newVolume = [Devices getVolumeForDeviceID:volDevice];
-        }else{
-            Float32 currentVolume = [Devices getVolumeForDeviceID:volDevice];
-            newVolume = [Volume setVolume:currentVolume
-                                      inDirection:volumeChangeKey == UP ? kVolumeChangeDirectionUp : kVolumeChangeDirectionDown
-                                toNearest:[[notification.userInfo objectForKey:@"SHIFT+ALT"] boolValue] ? kVolumeStepTypeQuarter : kVolumeStepTypeFull];
-            [Devices setVolumeForDevice:volDevice to: newVolume];
-        }
-        
-        if([[Storage get:kStorageShowVolumeHUD] integerValue] == 1){
-            [volumeHUD showHUDforVolume: newVolume];
         }
     }
 }

@@ -58,8 +58,6 @@
 		E0B781881EF704A20076B3AB /* SliderGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B781731EF704A20076B3AB /* SliderGraphView.m */; };
 		E0B781891EF704A20076B3AB /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0B781771EF704A20076B3AB /* SettingsViewController.mm */; };
 		E0B7818B1EF704A20076B3AB /* eqMacStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B7817B1EF704A20076B3AB /* eqMacStatusItemView.m */; };
-		E0B7818D1EF704A20076B3AB /* VolumeWindowController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0B781811EF704A20076B3AB /* VolumeWindowController.mm */; };
-		E0B7818E1EF704A20076B3AB /* VolumeWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0B781821EF704A20076B3AB /* VolumeWindowController.xib */; };
 		E0B781AD1EF704BA0076B3AB /* blueLine.png in Resources */ = {isa = PBXBuildFile; fileRef = E0B781911EF704BA0076B3AB /* blueLine.png */; };
 		E0B781AF1EF704BA0076B3AB /* 1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = E0B781941EF704BA0076B3AB /* 1024x1024.png */; };
 		E0B781B01EF704BA0076B3AB /* 128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = E0B781951EF704BA0076B3AB /* 128x128.png */; };
@@ -76,10 +74,9 @@
 		E0B781CD1EF706670076B3AB /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0B781C81EF706670076B3AB /* AppDelegate.mm */; };
 		E0B781CE1EF706670076B3AB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0B781C91EF706670076B3AB /* Info.plist */; };
 		E0B781CF1EF706670076B3AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B781CA1EF706670076B3AB /* main.m */; };
-		E0B781D01EF706670076B3AB /* NSAppEventCather.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B781CC1EF706670076B3AB /* NSAppEventCather.m */; };
 		E0B781D31EF706700076B3AB /* Main.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0B781D11EF706700076B3AB /* Main.xib */; };
-		E0CADB0E1F2CC1A500AC53E8 /* VolumeLevelIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CADB0D1F2CC1A500AC53E8 /* VolumeLevelIndicatorView.m */; };
-		E0CADB121F2CD2F400AC53E8 /* Volume.m in Sources */ = {isa = PBXBuildFile; fileRef = E0CADB111F2CD2F400AC53E8 /* Volume.m */; };
+		E0FB5A0D1F8AA0C100FADA72 /* eqMac2Helper in Resources */ = {isa = PBXBuildFile; fileRef = E09C7A491F8A817600CAE4E0 /* eqMac2Helper */; };
+		E0FB5A0E1F8AA0C500FADA72 /* eqMac2Driver.kext in Resources */ = {isa = PBXBuildFile; fileRef = E09C7A4A1F8A81C900CAE4E0 /* eqMac2Driver.kext */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -119,7 +116,6 @@
 		A44CF14B89CD3E798D15238B /* Pods-eqMac2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eqMac2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eqMac2/Pods-eqMac2.debug.xcconfig"; sourceTree = "<group>"; };
 		A7CD694314F86C465E4A5F8B /* libPods-eqMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-eqMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB898D1CC464E56A965D8E4A /* Pods_eqMac2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eqMac2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0332AC81F861A660004B6FA /* eqMacAudio.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; path = eqMacAudio.kext; sourceTree = "<group>"; };
 		E052D97E1F489A11003B0535 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Main.strings"; sourceTree = "<group>"; };
 		E052D97F1F489A11003B0535 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/eqViewController.strings"; sourceTree = "<group>"; };
 		E052D9811F489A11003B0535 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -131,6 +127,8 @@
 		E060328C1F7E9BC500F2FFD2 /* SupportWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupportWindow.m; sourceTree = "<group>"; };
 		E060328D1F7E9BC500F2FFD2 /* SupportWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportWindow.xib; sourceTree = "<group>"; };
 		E07BF4B41D6B4BA400589F0C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		E09C7A491F8A817600CAE4E0 /* eqMac2Helper */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = eqMac2Helper; path = eqMac2/Common/Helper/eqMac2Helper; sourceTree = SOURCE_ROOT; };
+		E09C7A4A1F8A81C900CAE4E0 /* eqMac2Driver.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; path = eqMac2Driver.kext; sourceTree = "<group>"; };
 		E0B0A7E51EA023F800D2BB98 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		E0B5F07D1F25EEE4005C5F46 /* exitDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exitDark.png; sourceTree = "<group>"; };
 		E0B5F07E1F25EEE4005C5F46 /* exitLight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exitLight.png; sourceTree = "<group>"; };
@@ -189,9 +187,6 @@
 		E0B781771EF704A20076B3AB /* SettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsViewController.mm; sourceTree = "<group>"; };
 		E0B7817A1EF704A20076B3AB /* eqMacStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eqMacStatusItemView.h; sourceTree = "<group>"; };
 		E0B7817B1EF704A20076B3AB /* eqMacStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eqMacStatusItemView.m; sourceTree = "<group>"; };
-		E0B781801EF704A20076B3AB /* VolumeWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VolumeWindowController.h; sourceTree = "<group>"; };
-		E0B781811EF704A20076B3AB /* VolumeWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VolumeWindowController.mm; sourceTree = "<group>"; };
-		E0B781821EF704A20076B3AB /* VolumeWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VolumeWindowController.xib; sourceTree = "<group>"; };
 		E0B781911EF704BA0076B3AB /* blueLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueLine.png; sourceTree = "<group>"; };
 		E0B781941EF704BA0076B3AB /* 1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024x1024.png; sourceTree = "<group>"; };
 		E0B781951EF704BA0076B3AB /* 128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 128x128.png; sourceTree = "<group>"; };
@@ -209,13 +204,7 @@
 		E0B781C81EF706670076B3AB /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		E0B781C91EF706670076B3AB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E0B781CA1EF706670076B3AB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E0B781CB1EF706670076B3AB /* NSAppEventCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAppEventCatcher.h; sourceTree = "<group>"; };
-		E0B781CC1EF706670076B3AB /* NSAppEventCather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAppEventCather.m; sourceTree = "<group>"; };
 		E0B781D21EF706700076B3AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Main.xib; sourceTree = "<group>"; };
-		E0CADB0C1F2CC1A500AC53E8 /* VolumeLevelIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VolumeLevelIndicatorView.h; path = VolumeLevelIndicatorView/VolumeLevelIndicatorView.h; sourceTree = "<group>"; };
-		E0CADB0D1F2CC1A500AC53E8 /* VolumeLevelIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VolumeLevelIndicatorView.m; path = VolumeLevelIndicatorView/VolumeLevelIndicatorView.m; sourceTree = "<group>"; };
-		E0CADB101F2CD2F400AC53E8 /* Volume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Volume.h; path = Volume/Volume.h; sourceTree = "<group>"; };
-		E0CADB111F2CD2F400AC53E8 /* Volume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Volume.m; path = Volume/Volume.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,8 +252,6 @@
 				E0B781C81EF706670076B3AB /* AppDelegate.mm */,
 				E0B781C91EF706670076B3AB /* Info.plist */,
 				E0B781CA1EF706670076B3AB /* main.m */,
-				E0B781CB1EF706670076B3AB /* NSAppEventCatcher.h */,
-				E0B781CC1EF706670076B3AB /* NSAppEventCather.m */,
 				E0B781D11EF706700076B3AB /* Main.xib */,
 				E0B781291EF704660076B3AB /* Common */,
 				E0B7815C1EF704A20076B3AB /* Libs */,
@@ -312,10 +299,19 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		E09C7A471F8A814500CAE4E0 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				E09C7A491F8A817600CAE4E0 /* eqMac2Helper */,
+			);
+			name = Helper;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		E0B781291EF704660076B3AB /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E0CADB0F1F2CD2D400AC53E8 /* Volume */,
+				E09C7A471F8A814500CAE4E0 /* Helper */,
 				E0B7812A1EF704660076B3AB /* API */,
 				E0B7812D1EF704660076B3AB /* Constants */,
 				E0B781301EF704660076B3AB /* Devices */,
@@ -360,7 +356,7 @@
 		E0B781331EF704660076B3AB /* Driver */ = {
 			isa = PBXGroup;
 			children = (
-				E0332AC81F861A660004B6FA /* eqMacAudio.kext */,
+				E09C7A4A1F8A81C900CAE4E0 /* eqMac2Driver.kext */,
 			);
 			path = Driver;
 			sourceTree = "<group>";
@@ -471,7 +467,6 @@
 				E0B7816D1EF704A20076B3AB /* EQ */,
 				E0B781751EF704A20076B3AB /* Settings */,
 				E0B781791EF704A20076B3AB /* StatusItem */,
-				E0B7817C1EF704A20076B3AB /* Volume */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -513,17 +508,6 @@
 				E0B7817B1EF704A20076B3AB /* eqMacStatusItemView.m */,
 			);
 			path = StatusItem;
-			sourceTree = "<group>";
-		};
-		E0B7817C1EF704A20076B3AB /* Volume */ = {
-			isa = PBXGroup;
-			children = (
-				E0CADB0B1F2CC17A00AC53E8 /* VolumeLevelIndicatorView */,
-				E0B781801EF704A20076B3AB /* VolumeWindowController.h */,
-				E0B781811EF704A20076B3AB /* VolumeWindowController.mm */,
-				E0B781821EF704A20076B3AB /* VolumeWindowController.xib */,
-			);
-			path = Volume;
 			sourceTree = "<group>";
 		};
 		E0B7818F1EF704BA0076B3AB /* Assets */ = {
@@ -578,24 +562,6 @@
 				E0B7819D1EF704BA0076B3AB /* 96x96.png */,
 			);
 			path = Icons;
-			sourceTree = "<group>";
-		};
-		E0CADB0B1F2CC17A00AC53E8 /* VolumeLevelIndicatorView */ = {
-			isa = PBXGroup;
-			children = (
-				E0CADB0C1F2CC1A500AC53E8 /* VolumeLevelIndicatorView.h */,
-				E0CADB0D1F2CC1A500AC53E8 /* VolumeLevelIndicatorView.m */,
-			);
-			name = VolumeLevelIndicatorView;
-			sourceTree = "<group>";
-		};
-		E0CADB0F1F2CD2D400AC53E8 /* Volume */ = {
-			isa = PBXGroup;
-			children = (
-				E0CADB101F2CD2F400AC53E8 /* Volume.h */,
-				E0CADB111F2CD2F400AC53E8 /* Volume.m */,
-			);
-			name = Volume;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -697,7 +663,8 @@
 				E0B5F09E1F25EEE4005C5F46 /* vol3Light.png in Resources */,
 				E0B5F0941F25EEE4005C5F46 /* speakerLight.png in Resources */,
 				E0B5F0911F25EEE4005C5F46 /* saveDark.png in Resources */,
-				E0B7818E1EF704A20076B3AB /* VolumeWindowController.xib in Resources */,
+				E0FB5A0E1F8AA0C500FADA72 /* eqMac2Driver.kext in Resources */,
+				E0FB5A0D1F8AA0C100FADA72 /* eqMac2Helper in Resources */,
 				E0B5F0931F25EEE4005C5F46 /* speakerDark.png in Resources */,
 				E0B781C61EF704BA0076B3AB /* Assets.xcassets in Resources */,
 				E0B781571EF704660076B3AB /* uninstall_app.sh in Resources */,
@@ -765,21 +732,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0B781861EF704A20076B3AB /* eqViewController.mm in Sources */,
-				E0CADB0E1F2CC1A500AC53E8 /* VolumeLevelIndicatorView.m in Sources */,
 				E0B7818B1EF704A20076B3AB /* eqMacStatusItemView.m in Sources */,
 				E0B781551EF704660076B3AB /* Presets.m in Sources */,
 				E0B781841EF704A20076B3AB /* CARingBuffer.cpp in Sources */,
-				E0CADB121F2CD2F400AC53E8 /* Volume.m in Sources */,
 				E0B781891EF704A20076B3AB /* SettingsViewController.mm in Sources */,
 				E0B781881EF704A20076B3AB /* SliderGraphView.m in Sources */,
 				E0B7814E1EF704660076B3AB /* Constants.m in Sources */,
 				E0B7814F1EF704660076B3AB /* Devices.mm in Sources */,
 				E0B781521EF704660076B3AB /* EQHost.mm in Sources */,
 				E0B781CF1EF706670076B3AB /* main.m in Sources */,
-				E0B7818D1EF704A20076B3AB /* VolumeWindowController.mm in Sources */,
 				E0B7815B1EF704660076B3AB /* Utilities.m in Sources */,
 				E0B7814D1EF704660076B3AB /* API.m in Sources */,
-				E0B781D01EF706670076B3AB /* NSAppEventCather.m in Sources */,
 				E0B781831EF704A20076B3AB /* AudioDevice.cpp in Sources */,
 				E060328E1F7E9BC500F2FFD2 /* SupportWindow.m in Sources */,
 				E0B781CD1EF706670076B3AB /* AppDelegate.mm in Sources */,
@@ -938,7 +901,7 @@
 					"$(PROJECT_DIR)/eqMac",
 				);
 				GCC_INPUT_FILETYPE = automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/eqMac2/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitgapp.eqMac2;
@@ -963,7 +926,7 @@
 					"$(PROJECT_DIR)/eqMac",
 				);
 				GCC_INPUT_FILETYPE = automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/eqMac2/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitgapp.eqMac2;

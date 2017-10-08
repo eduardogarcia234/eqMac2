@@ -33,7 +33,7 @@
 	<key>NSMainNibFile</key>
 	<string>Main</string>
 	<key>NSPrincipalClass</key>
-	<string>NSAppEventCatcher</string>
+	<string>NSApplication</string>
 	<key>SUFeedURL</key>
 	<string>https://bitgapp.com/eqmac/update.xml</string>
 </dict>

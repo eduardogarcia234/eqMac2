@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "222ADFEB1862531600C9BE56"
-               BuildableName = "Driver.kext"
+               BuildableName = "eqMac2Driver.kext"
                BlueprintName = "Driver"
                ReferencedContainer = "container:Driver.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "222ADFEB1862531600C9BE56"
-            BuildableName = "Driver.kext"
+            BuildableName = "eqMac2Driver.kext"
             BlueprintName = "Driver"
             ReferencedContainer = "container:Driver.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "222ADFEB1862531600C9BE56"
-            BuildableName = "Driver.kext"
+            BuildableName = "eqMac2Driver.kext"
             BlueprintName = "Driver"
             ReferencedContainer = "container:Driver.xcodeproj">
          </BuildableReference>
