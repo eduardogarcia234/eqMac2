@@ -241,7 +241,7 @@
 		306DA1BE1BEF965F002CB1C9 = {
 			isa = PBXGroup;
 			children = (
-				306DA1C91BEF965F002CB1C9 /* Source */,
+				306DA1C91BEF965F002CB1C9 /* eqMac2 */,
 				306DA1C81BEF965F002CB1C9 /* Products */,
 				30A77E8D1BFB097400503E6E /* Frameworks */,
 				6D3D49CE95FBA49AB1FBC4BF /* Pods */,
@@ -256,7 +256,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		306DA1C91BEF965F002CB1C9 /* Source */ = {
+		306DA1C91BEF965F002CB1C9 /* eqMac2 */ = {
 			isa = PBXGroup;
 			children = (
 				E0B781C71EF706670076B3AB /* AppDelegate.h */,
@@ -272,7 +272,7 @@
 				E0B7818F1EF704BA0076B3AB /* Assets */,
 				3AD8DE701F30EFA80079E8A7 /* Localizable.strings */,
 			);
-			path = Source;
+			path = eqMac2;
 			sourceTree = "<group>";
 		};
 		30A77E8D1BFB097400503E6E /* Frameworks */ = {

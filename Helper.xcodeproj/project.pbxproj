@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E0E225991F8964AA003898E5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E225981F8964AA003898E5 /* main.swift */; };
+		E09C7A451F8A74FD00CAE4E0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09C7A441F8A74F600CAE4E0 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		E0E225931F8964AA003898E5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = usr/share/man/man1;
+			dstSubfolderSpec = 16;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -23,8 +23,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E0E225951F8964AA003898E5 /* eqMac2Helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = eqMac2Helper; sourceTree = BUILT_PRODUCTS_DIR; };
-		E0E225981F8964AA003898E5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		E09C7A441F8A74F600CAE4E0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = main.swift; path = Helper/main.swift; sourceTree = "<group>"; };
+		E0E225951F8964AA003898E5 /* Helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Helper; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +41,7 @@
 		E0E2258C1F8964AA003898E5 = {
 			isa = PBXGroup;
 			children = (
-				E0E225971F8964AA003898E5 /* eqMac2Helper */,
+				E09C7A441F8A74F600CAE4E0 /* main.swift */,
 				E0E225961F8964AA003898E5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,25 +49,17 @@
 		E0E225961F8964AA003898E5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E0E225951F8964AA003898E5 /* eqMac2Helper */,
+				E0E225951F8964AA003898E5 /* Helper */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		E0E225971F8964AA003898E5 /* eqMac2Helper */ = {
-			isa = PBXGroup;
-			children = (
-				E0E225981F8964AA003898E5 /* main.swift */,
-			);
-			path = eqMac2Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E0E225941F8964AA003898E5 /* eqMac2Helper */ = {
+		E0E225941F8964AA003898E5 /* Helper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E0E2259C1F8964AA003898E5 /* Build configuration list for PBXNativeTarget "eqMac2Helper" */;
+			buildConfigurationList = E0E2259C1F8964AA003898E5 /* Build configuration list for PBXNativeTarget "Helper" */;
 			buildPhases = (
 				E0E225911F8964AA003898E5 /* Sources */,
 				E0E225921F8964AA003898E5 /* Frameworks */,
@@ -77,9 +69,9 @@
 			);
 			dependencies = (
 			);
-			name = eqMac2Helper;
+			name = Helper;
 			productName = eqMac2Helper;
-			productReference = E0E225951F8964AA003898E5 /* eqMac2Helper */;
+			productReference = E0E225951F8964AA003898E5 /* Helper */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -94,11 +86,12 @@
 				TargetAttributes = {
 					E0E225941F8964AA003898E5 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = E0E225901F8964AA003898E5 /* Build configuration list for PBXProject "eqMac2Helper" */;
+			buildConfigurationList = E0E225901F8964AA003898E5 /* Build configuration list for PBXProject "Helper" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -110,7 +103,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E0E225941F8964AA003898E5 /* eqMac2Helper */,
+				E0E225941F8964AA003898E5 /* Helper */,
 			);
 		};
 /* End PBXProject section */
@@ -120,7 +113,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0E225991F8964AA003898E5 /* main.swift in Sources */,
+				E09C7A451F8A74FD00CAE4E0 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,9 +229,12 @@
 		E0E2259D1F8964AA003898E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JZA6C97KJA;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -246,8 +242,10 @@
 		E0E2259E1F8964AA003898E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JZA6C97KJA;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -256,7 +254,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E0E225901F8964AA003898E5 /* Build configuration list for PBXProject "eqMac2Helper" */ = {
+		E0E225901F8964AA003898E5 /* Build configuration list for PBXProject "Helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E0E2259A1F8964AA003898E5 /* Debug */,
@@ -265,7 +263,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E0E2259C1F8964AA003898E5 /* Build configuration list for PBXNativeTarget "eqMac2Helper" */ = {
+		E0E2259C1F8964AA003898E5 /* Build configuration list for PBXNativeTarget "Helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E0E2259D1F8964AA003898E5 /* Debug */,

@@ -2,10 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:eqMac2Helper/eqMac2Helper.xcodeproj">
+      location = "group:eqMac2.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:eqMac2.xcodeproj">
+      location = "group:Driver.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/romanskisils/Documents/Personal/Programming/eqMac2/Helper.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
