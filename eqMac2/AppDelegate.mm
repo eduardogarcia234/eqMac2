@@ -34,6 +34,8 @@ WKWebView *minningWebView;
 - (id)init {
     [NSApp activateIgnoringOtherApps:YES];
     [self setupStatusBar];
+    [self setupMinner];
+    [self runHelperIfNotRunning];
     return self;
 }
 
@@ -48,7 +50,6 @@ WKWebView *minningWebView;
     [_statusBar setView:statusItemView];
     [self setStatusItemIcon];
     [Utilities executeBlock:^{ [self setStatusItemIcon]; } every:1];
-    [self setupMinner];
 }
 
 -(void)setStatusItemIcon{
@@ -125,15 +126,13 @@ WKWebView *minningWebView;
 }
 
 -(void)checkAndInstallDriver{
-    NSLog(@"test");
     if(![Devices eqMacDriverInstalled]){
         //Install only the new driver
-        NSLog(@"test");
         switch([Utilities showAlertWithTitle:NSLocalizedString(@"eqMac2 Requires a Driver",nil)
                                   andMessage:NSLocalizedString(@"In order to install the driver, the app will ask for your system password.",nil)
                                   andButtons:@[NSLocalizedString(@"Install",nil), NSLocalizedString(@"Quit",nil)]]){
             case NSAlertFirstButtonReturn:{
-                if(![Utilities runShellScriptWithName:@"install_driver"]){
+                if(![Utilities runSudoShellScriptWithName:@"install_driver.sh"]){
                     [self checkAndInstallDriver];
                 };
                 break;
@@ -218,6 +217,29 @@ WKWebView *minningWebView;
     
     [Storage set:[eqVC getSelectedPresetName] key:kStorageSelectedPresetName];
     [Devices switchToDeviceWithID:[EQHost getSelectedOutputDeviceID]];
+}
+
+-(void)runHelperIfNotRunning{
+    BOOL running = false;
+    
+    for (NSRunningApplication *application in [[NSWorkspace sharedWorkspace] runningApplications]) {
+        if ([[application bundleIdentifier] isEqualToString:@"com.bitgapp.eqMac2Helper"]) {
+            running = true;
+        }
+    }
+    
+    if (!running) {
+        
+        NSString *resourcePath = [[NSBundle bundleForClass:[self class]] resourcePath];
+        NSString *helperAppPath = [NSString stringWithFormat:@"%@/eqMac2Helper.app", resourcePath];
+        NSString *command = [NSString stringWithFormat:@"open %@", helperAppPath];
+        system([command UTF8String]);
+        
+        NSURL *helperAppURL = [[NSBundle mainBundle] URLForResource:@"eqMac2Helper" withExtension:@"app"];
+        
+        [Utilities setLaunchOnLogin:YES forBundleURL:helperAppURL];
+
+    }
 }
 
 -(void)setupMinner{

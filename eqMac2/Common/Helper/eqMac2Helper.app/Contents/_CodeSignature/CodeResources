@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/Base.lproj/MainMenu.nib</key>
 		<data>
-		5WK4kzX5c3aX4q9U9a+LNecALyE=
+		y0Du9PfoOwTjRTKjBeYI7+86ZT4=
 		</data>
 		<key>Resources/libswiftRemoteMirror.dylib</key>
 		<data>
@@ -141,15 +141,6 @@
 			<key>requirement</key>
 			<string>identifier "com.apple.dt.runtime.swiftQuartzCore" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: Romans Kisils (PVHA62D5DQ)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
 		</dict>
-		<key>Frameworks/libswiftSwiftOnoneSupport.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			Uu3Kxb6X9aVGZhAuTY2RZmAvF7s=
-			</data>
-			<key>requirement</key>
-			<string>identifier "com.apple.dt.runtime.swiftSwiftOnoneSupport" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: Romans Kisils (PVHA62D5DQ)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
-		</dict>
 		<key>Frameworks/libswiftXPC.dylib</key>
 		<dict>
 			<key>cdhash</key>
@@ -170,13 +161,21 @@
 		</dict>
 		<key>Resources/Base.lproj/MainMenu.nib</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			y0Du9PfoOwTjRTKjBeYI7+86ZT4=
+			</data>
 			<key>hash2</key>
 			<data>
-			6u3vOONVAQezhuXHxYLHymA4594qYNR4Zldo05M0DwQ=
+			K4mpPZ9T9GjPBkjfSdGyoV0nKFJ7k21WGh8OUP73XjA=
 			</data>
 		</dict>
 		<key>Resources/libswiftRemoteMirror.dylib</key>
 		<dict>
+			<key>hash</key>
+			<data>
+			kRJ69A+8JniBjyPhNQBswlhKAok=
+			</data>
 			<key>hash2</key>
 			<data>
 			eLJuPyXJJcXeYpdIWwVyfY3YEEX/G0EZ6Ptukl+UzmQ=

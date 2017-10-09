@@ -27,13 +27,6 @@
                        andCallback: nil];
 }
 
-+(void)sendPresets{
-    NSDictionary *presets = [Presets getUserPresets];
-    [self apiRequestWithMethod:@"POST"
-                   andEndPoint:[NSString stringWithFormat:@"/user/%@/presets", [Utilities getUUID]]
-                       andBody:presets
-                   andCallback: nil];
-}
 
 +(void)apiRequestWithMethod:(NSString *)method andEndPoint:(NSString *)endpoint andBody:(id)body andCallback: (void (^)(id _Nullable resp, NSError * _Nullable err)) cb{
     AFHTTPSessionManager *http = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];

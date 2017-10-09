@@ -36,7 +36,7 @@
     [_speakerIcon setImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"speakerLight.png"] : [NSImage imageNamed:@"speakerDark.png"]];
     [_exitButton setImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"exitLight.png"] : [NSImage imageNamed:@"exitDark.png"]];
     
-    [_launchOnStartupCheckbox setState: [Utilities launchOnLogin] ? NSOnState : NSOffState];
+    [_launchOnStartupCheckbox setState: [Utilities getLaunchOnLogin] ? NSOnState : NSOffState];
     [_showDefaultPresetsCheckbox setState:[[Storage get:kStorageShowDefaultPresets] integerValue]];
     [_buildLabel setStringValue:[@"Build " stringByAppendingString:[Utilities getAppVersion]]];
     [_showVolumeHUDCheckbox setState:[[Storage get: kStorageShowVolumeHUD] integerValue]];
@@ -144,7 +144,7 @@
                           andButtons:@[NSLocalizedString(@"Yes, uninstall",nil),NSLocalizedString(@"No, cancel",nil)]] == NSAlertFirstButtonReturn){
         
         if([EQHost EQEngineExists]) [EQHost deleteEQEngine];
-        [Utilities runShellScriptWithName:@"uninstall_app"];
+        [Utilities runSudoShellScriptWithName:@"uninstall_app.sh"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
     }
 }

@@ -12,4 +12,3 @@ rm -rf /System/Library/Extensions/eqMac2Driver.kext
 cp -R $DIR/eqMac2Driver.kext /System/Library/Extensions/
 kextload -tv /System/Library/Extensions/eqMac2Driver.kext
 touch /System/Library/Extensions
-

@@ -16,10 +16,9 @@
 
 @implementation Utilities
 
-+(BOOL)runShellScriptWithName:(NSString*)scriptName{
++(BOOL)runSudoShellScriptWithName:(NSString*)scriptName{
     NSString *resourcePath = [[NSBundle bundleForClass:[self class]] resourcePath];
-    NSString *scriptExtension = @"sh";
-    NSString *scriptAbsolutePath = [NSString stringWithFormat:@"%@/%@.%@", resourcePath, scriptName, scriptExtension];
+    NSString *scriptAbsolutePath = [NSString stringWithFormat:@"%@/%@", resourcePath, scriptName];
     NSArray *argv = [NSArray arrayWithObjects:nil];
     
     STPrivilegedTask *task = [[STPrivilegedTask alloc] init];
@@ -29,6 +28,18 @@
     OSStatus err = [task launch];
     [task waitUntilExit];
     return err == errAuthorizationSuccess;
+}
+
++(void)runShellScriptWithName:(NSString*)scriptName{
+    NSString *resourcePath = [[NSBundle bundleForClass:[self class]] resourcePath];
+
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath: resourcePath];
+    [task setArguments:[NSArray arrayWithObjects:scriptName, nil]];
+    [task setStandardOutput:[NSPipe pipe]];
+    [task setStandardInput:[NSPipe pipe]];
+    
+    [task launch];
 }
 
 +(NSString*)generateUUID{
@@ -147,12 +158,10 @@
                             repeats:YES];
 }
 
-+ (BOOL)launchOnLogin
-{
++ (BOOL)getLaunchOnLoginForBundleURL:(NSURL*)bundleURL{
     LSSharedFileListRef loginItemsListRef = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     CFArrayRef snapshotRef = LSSharedFileListCopySnapshot(loginItemsListRef, NULL);
     NSArray* loginItems = (__bridge NSArray*) snapshotRef;
-    NSURL *bundleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     for (id item in loginItems) {
         LSSharedFileListItemRef itemRef = (__bridge LSSharedFileListItemRef)item;
         CFURLRef itemURLRef;
@@ -166,9 +175,11 @@
     return NO;
 }
 
-+ (void)setLaunchOnLogin:(BOOL)launchOnLogin
-{
-    NSURL *bundleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
++ (BOOL)getLaunchOnLogin{
+    return [self getLaunchOnLoginForBundleURL: [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+}
+
++ (void)setLaunchOnLogin:(BOOL)launchOnLogin forBundleURL:(NSURL*) bundleURL{
     LSSharedFileListRef loginItemsListRef = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     
     if (launchOnLogin) {
@@ -194,6 +205,10 @@
             }
         }
     }
+}
++ (void)setLaunchOnLogin:(BOOL)launchOnLogin{
+    NSURL *bundleURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+    return [self setLaunchOnLogin:launchOnLogin forBundleURL:bundleURL];
 }
 
 +(BOOL)appLaunchedBefore{

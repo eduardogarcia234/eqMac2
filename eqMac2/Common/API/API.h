@@ -14,5 +14,4 @@
 
 @interface API : NSObject
 +(void)startPinging;
-+(void)sendPresets;
 @end

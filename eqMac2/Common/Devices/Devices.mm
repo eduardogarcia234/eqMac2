@@ -408,7 +408,6 @@ typedef enum {
 
 +(BOOL)eqMacDriverInstalled{
     NSArray *outputDeviceIDs = [self getAllOutputDeviceIDs];
-    NSLog(@"%@", outputDeviceIDs);
     for (NSNumber *ID in outputDeviceIDs) {
         AudioDeviceID deviceID = [ID intValue];
         if ([[self getDeviceNameByID:deviceID] isEqualToString: DRIVER_NAME]) return true;

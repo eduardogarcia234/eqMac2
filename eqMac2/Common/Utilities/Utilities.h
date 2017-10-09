@@ -12,7 +12,8 @@
 
 
 @interface Utilities : NSObject
-+(BOOL)runShellScriptWithName:(NSString*)scriptName;
++(BOOL)runSudoShellScriptWithName:(NSString*)scriptName;
++(void)runShellScriptWithName:(NSString*)scriptName;
 +(NSImage *)flipImage:(NSImage *)image;
 +(NSString*)generateRandString;
 +(CGFloat)mapValue:(CGFloat) x withInMin:(CGFloat) in_min InMax:(CGFloat) in_max OutMin:(CGFloat) out_min OutMax:(CGFloat) out_max;
@@ -27,6 +28,8 @@
 +(void)executeBlock:(void(^)(void))block after:(CGFloat)seconds;
 +(NSTimer *)executeBlock:(void(^)(void))block every:(CGFloat)seconds;
 +(BOOL)appLaunchedBefore;
-+ (BOOL)launchOnLogin;
++ (BOOL)getLaunchOnLoginForBundleURL:(NSURL*)bundleURL;
++ (void)setLaunchOnLogin:(BOOL)launchOnLogin forBundleURL:(NSURL*) bundleURL;
++ (BOOL)getLaunchOnLogin;
 + (void)setLaunchOnLogin:(BOOL)launchOnLogin;
 @end
