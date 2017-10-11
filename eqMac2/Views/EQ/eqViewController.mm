@@ -25,7 +25,7 @@
 NSArray *bandArray;
 SliderGraphView *sliderView;
 NSNotificationCenter *notify;
-NSString* BAND_MODE = @"31";
+NSString* BAND_MODE = @"10";
 NSArray *devices;
 
 @implementation eqViewController
@@ -192,4 +192,22 @@ NSArray *devices;
     [_presetsPopup setTitle:name];
 }
 
+- (IBAction)onOffToggle:(ITSwitch *)sender {
+    NSLog(@"%hhd", [sender checked]);
+}
+
+- (IBAction)quitApplication:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
+}
+
+- (IBAction)uninstallApplication:(id)sender {
+    if([Utilities showAlertWithTitle:NSLocalizedString(@"Uninstall eqMac2?",nil)
+                          andMessage:NSLocalizedString(@"Are you sure about this?",nil)
+                          andButtons:@[NSLocalizedString(@"Yes, uninstall",nil),NSLocalizedString(@"No, cancel",nil)]] == NSAlertFirstButtonReturn){
+        
+        if([EQHost EQEngineExists]) [EQHost deleteEQEngine];
+        [Utilities runSudoShellScriptWithName:@"uninstall_app.sh"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
+    }
+}
 @end

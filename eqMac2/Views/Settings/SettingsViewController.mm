@@ -134,20 +134,6 @@
 
 }
 
-- (IBAction)quitApplication:(id)sender {
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
-}
-
-- (IBAction)uninstallApplication:(id)sender {
-    if([Utilities showAlertWithTitle:NSLocalizedString(@"Uninstall eqMac2?",nil)
-                          andMessage:NSLocalizedString(@"Are you sure about this?",nil)
-                          andButtons:@[NSLocalizedString(@"Yes, uninstall",nil),NSLocalizedString(@"No, cancel",nil)]] == NSAlertFirstButtonReturn){
-        
-        if([EQHost EQEngineExists]) [EQHost deleteEQEngine];
-        [Utilities runSudoShellScriptWithName:@"uninstall_app.sh"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
-    }
-}
 - (IBAction)changeLaunchOnStartup:(NSButton*)sender {
     [Utilities setLaunchOnLogin:[sender state] == NSOnState ? true : false];
 }

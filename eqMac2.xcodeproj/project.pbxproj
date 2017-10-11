@@ -23,6 +23,7 @@
 		E060328E1F7E9BC500F2FFD2 /* SupportWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E060328C1F7E9BC500F2FFD2 /* SupportWindow.m */; };
 		E060328F1F7E9BC500F2FFD2 /* SupportWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E060328D1F7E9BC500F2FFD2 /* SupportWindow.xib */; };
 		E07BF4B51D6B4BA400589F0C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07BF4B41D6B4BA400589F0C /* WebKit.framework */; };
+		E07CF3971F8EBBCF009210D6 /* ITSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CF3951F8EB5FC009210D6 /* ITSwitch.m */; };
 		E0B5F08F1F25EEE4005C5F46 /* exitDark.png in Resources */ = {isa = PBXBuildFile; fileRef = E0B5F07D1F25EEE4005C5F46 /* exitDark.png */; };
 		E0B5F0901F25EEE4005C5F46 /* exitLight.png in Resources */ = {isa = PBXBuildFile; fileRef = E0B5F07E1F25EEE4005C5F46 /* exitLight.png */; };
 		E0B5F0911F25EEE4005C5F46 /* saveDark.png in Resources */ = {isa = PBXBuildFile; fileRef = E0B5F07F1F25EEE4005C5F46 /* saveDark.png */; };
@@ -128,6 +129,8 @@
 		E060328C1F7E9BC500F2FFD2 /* SupportWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupportWindow.m; sourceTree = "<group>"; };
 		E060328D1F7E9BC500F2FFD2 /* SupportWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportWindow.xib; sourceTree = "<group>"; };
 		E07BF4B41D6B4BA400589F0C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		E07CF3951F8EB5FC009210D6 /* ITSwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ITSwitch.m; sourceTree = "<group>"; };
+		E07CF3961F8EB5FC009210D6 /* ITSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ITSwitch.h; sourceTree = "<group>"; };
 		E09C7A4A1F8A81C900CAE4E0 /* eqMac2Driver.kext */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.kernel-extension"; path = eqMac2Driver.kext; sourceTree = "<group>"; };
 		E0B0A7E51EA023F800D2BB98 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		E0B5F07D1F25EEE4005C5F46 /* exitDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = exitDark.png; sourceTree = "<group>"; };
@@ -299,6 +302,15 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		E07CF3941F8EB5E5009210D6 /* ITSwitch */ = {
+			isa = PBXGroup;
+			children = (
+				E07CF3961F8EB5FC009210D6 /* ITSwitch.h */,
+				E07CF3951F8EB5FC009210D6 /* ITSwitch.m */,
+			);
+			path = ITSwitch;
+			sourceTree = "<group>";
+		};
 		E09C7A471F8A814500CAE4E0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,6 +474,7 @@
 		E0B7816C1EF704A20076B3AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E07CF3941F8EB5E5009210D6 /* ITSwitch */,
 				E06032871F7E9B8B00F2FFD2 /* Support */,
 				E0B7816D1EF704A20076B3AB /* EQ */,
 				E0B781751EF704A20076B3AB /* Settings */,
@@ -684,9 +697,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-eqMac2/Pods-eqMac2-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/STPrivilegedTask/STPrivilegedTask.framework",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STPrivilegedTask.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -714,13 +736,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-eqMac2-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -741,6 +766,7 @@
 				E0B781521EF704660076B3AB /* EQHost.mm in Sources */,
 				E0B781CF1EF706670076B3AB /* main.m in Sources */,
 				E0B7815B1EF704660076B3AB /* Utilities.m in Sources */,
+				E07CF3971F8EBBCF009210D6 /* ITSwitch.m in Sources */,
 				E0B7814D1EF704660076B3AB /* API.m in Sources */,
 				E0B781831EF704A20076B3AB /* AudioDevice.cpp in Sources */,
 				E060328E1F7E9BC500F2FFD2 /* SupportWindow.m in Sources */,

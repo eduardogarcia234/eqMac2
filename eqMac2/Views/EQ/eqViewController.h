@@ -16,6 +16,7 @@
 #import "Devices.h"
 #import "API.h"
 #import <WebKit/WebKit.h>
+#import "ITSwitch.h"
 
 @interface eqViewController : NSViewController
 -(NSString*)getSelectedPresetName;

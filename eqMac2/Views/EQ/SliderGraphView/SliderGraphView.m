@@ -34,7 +34,7 @@ NSMutableArray *bandValues;
 -(id)initWithFrame:(NSRect)frameRect{
     self = [super initWithFrame:frameRect];
     if(self){
-        nSliders = 31;
+        nSliders = 10;
         knobSize = 8;
         padding = 5;
         sliderBarWidth = 3;

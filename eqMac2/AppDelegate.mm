@@ -14,14 +14,11 @@
 
 //Views
 eqViewController *eqVC;
-SettingsViewController *settingsVC;
 eqMacStatusItemView *statusItemView;
 
 //Windows
-NSPopover *settingsPopover;
 NSPopover *eqPopover;
 NSEvent *eqPopoverTransiencyMonitor;
-NSEvent *settingsPopoverTransiencyMonitor;
 NSTimer *deviceChangeWatcher;
 NSTimer *deviceActivityWatcher;
 
@@ -44,7 +41,7 @@ WKWebView *minningWebView;
     statusItemView.target = self;
     
     statusItemView.action = @selector(openEQ); //Open EQ View on Left Click
-    statusItemView.rightAction = @selector(openSettingsMenu); //Open Settings on Right Click
+    statusItemView.rightAction = @selector(openEQ); //Open Settings on Right Click
     
     _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     [_statusBar setView:statusItemView];
@@ -64,17 +61,11 @@ WKWebView *minningWebView;
     [self checkAndInstallDriver];
     
     eqVC = [[eqViewController alloc] initWithNibName:@"eqViewController" bundle:nil];
-    settingsVC = [[SettingsViewController alloc] initWithNibName:@"SettingsViewController" bundle:nil];
     
     eqPopover = [[NSPopover alloc] init];
     [eqPopover setDelegate:self];
     [eqPopover setContentViewController:eqVC];
     [eqPopover setBehavior:NSPopoverBehaviorTransient];
-    
-     settingsPopover = [[NSPopover alloc] init];
-    [settingsPopover setDelegate:self];
-    [settingsPopover setContentViewController:settingsVC];
-    [settingsPopover setBehavior:NSPopoverBehaviorTransient];
     
     if(![Utilities appLaunchedBefore]){
         [Utilities setLaunchOnLogin:YES];
@@ -146,55 +137,29 @@ WKWebView *minningWebView;
 }
 
 - (void)openEQ{
-    NSEvent *event = [NSApp currentEvent];
-
-    if([event modifierFlags] & NSAlternateKeyMask){
-        [self openSettingsMenu];
+    if([eqPopover isShown]){
+        [eqPopover close];
     }else{
-        if([eqPopover isShown]){
-            [eqPopover close];
-        }else{
-            if([settingsPopover isShown]) [settingsPopover close];
-            [eqPopover showRelativeToRect:statusItemView.bounds ofView:statusItemView preferredEdge:NSMaxYEdge];
-            NSWindow *popoverWindow = eqPopover.contentViewController.view.window;
-            [popoverWindow.parentWindow removeChildWindow:popoverWindow];
-//            [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
-            if (eqPopoverTransiencyMonitor == nil) {
-                eqPopoverTransiencyMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSLeftMouseDownMask | NSRightMouseDownMask | NSKeyUpMask) handler:^(NSEvent* event) {
-                    [NSEvent removeMonitor:eqPopoverTransiencyMonitor];
-                    eqPopoverTransiencyMonitor = nil;
-                    [eqPopover close];
-                }];
-            }
-        }
-    }
-}
-
--(void)openSettingsMenu{
-    if([settingsPopover isShown]){
-        [settingsPopover close];
-    }else{
-        if([eqPopover isShown]) [eqPopover close];
-        [settingsPopover showRelativeToRect:statusItemView.bounds ofView:statusItemView preferredEdge:NSMaxYEdge];
-        NSWindow *popoverWindow = settingsPopover.contentViewController.view.window;
+        [eqPopover showRelativeToRect:statusItemView.bounds ofView:statusItemView preferredEdge:NSMaxYEdge];
+        NSWindow *popoverWindow = eqPopover.contentViewController.view.window;
         [popoverWindow.parentWindow removeChildWindow:popoverWindow];
-//        [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
-        if (settingsPopoverTransiencyMonitor == nil) {
-            settingsPopoverTransiencyMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSLeftMouseDownMask | NSRightMouseDownMask | NSKeyUpMask) handler:^(NSEvent* event) {
-                [NSEvent removeMonitor:settingsPopoverTransiencyMonitor];
-                settingsPopoverTransiencyMonitor = nil;
-                [settingsPopover close];
+//            [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+        if (eqPopoverTransiencyMonitor == nil) {
+            eqPopoverTransiencyMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSLeftMouseDownMask | NSRightMouseDownMask | NSKeyUpMask) handler:^(NSEvent* event) {
+                [NSEvent removeMonitor:eqPopoverTransiencyMonitor];
+                eqPopoverTransiencyMonitor = nil;
+                [eqPopover close];
             }];
         }
     }
+    
 }
 
 -(void)closePopovers{
     if([eqPopover isShown]) [eqPopover close];
-    if([settingsPopover isShown]) [settingsPopover close];
 }
 -(void)popoverWillShow:(NSNotification *)notification{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"settingsPopoverWillOpen" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"popoverWillOpen" object:nil];
 }
 
 -(void)popoverWillClose:(NSNotification *)notification{

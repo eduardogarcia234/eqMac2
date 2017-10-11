@@ -11,5 +11,5 @@ target 'eqMac2' do
     pod 'AFNetworking', '~> 3.1'
     pod 'Sparkle'
 end
-
-workspace 'eqMac'
+project './eqMac2.xcodeproj'
+workspace 'eqMac2'
