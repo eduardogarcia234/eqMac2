@@ -19,6 +19,17 @@
 @property (strong) IBOutlet NSPopUpButton *presetsPopup;
 @property (strong) IBOutlet NSView *bandLabelsView;
 @property (strong) IBOutlet NSView *mockSliderView;
+
+@property (strong) IBOutlet NSButton *launchOnStartupCheckbox;
+@property (strong) IBOutlet NSButton *showDefaultPresetsCheckbox;
+@property (strong) IBOutlet NSTextField *buildLabel;
+
+@property (strong) IBOutlet NSSlider *balanceSlider;
+@property (strong) IBOutlet NSImageView *leftSpeaker;
+@property (strong) IBOutlet NSImageView *rightSpeaker;
+@property (strong) IBOutlet NSView *controlsView;
+@property (strong) IBOutlet NSView *optionsView;
+
 @end
 
 
@@ -28,18 +39,29 @@ NSNotificationCenter *notify;
 NSString* BAND_MODE = @"10";
 NSArray *devices;
 
+CGFloat defaultWidth = 309;
+CGFloat defaultHeight = 383;
+
 @implementation eqViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
+    
     sliderView = [[SliderGraphView alloc] initWithFrame: _mockSliderView.frame];
+    [sliderView setAutoresizingMask:_mockSliderView.autoresizingMask];
     _mockSliderView = nil;
     [self.view addSubview:sliderView];
-        
+    
     notify = [NSNotificationCenter defaultCenter];
     [notify addObserver:self selector:@selector(sliderGraphChanged) name:@"sliderGraphChanged" object:nil];
     [notify addObserver:self selector:@selector(populatePresetsPopup) name:@"showDefaultPresetsChanged" object:nil];
+    [notify addObserver:self selector:@selector(readjustSettings) name:@"popoverWillOpen" object:nil];
+    
+    [self readjustSettings];
+    
+    [_launchOnStartupCheckbox setState: [Utilities getLaunchOnLogin] ? NSOnState : NSOffState];
+    [_showDefaultPresetsCheckbox setState:[[Storage get:kStorageShowDefaultPresets] integerValue]];
+    [_buildLabel setStringValue:[@"Build " stringByAppendingString:[Utilities getAppVersion]]];
     
     NSString *previouslySelectedBandMode = [Storage get:kStorageSelectedBandMode];
     if (previouslySelectedBandMode && [@[@"10", @"31"] containsObject:previouslySelectedBandMode]){
@@ -48,11 +70,21 @@ NSArray *devices;
     
     [self populateBandLabelsView];
     [self populatePresetsPopup];
-    [self populateOutputDevicePopup];
     
     NSString *selectedPresetsName = [Storage get:kStorageSelectedPresetName];
     if(selectedPresetsName) [_presetsPopup setTitle:selectedPresetsName];
 }
+
+-(void)readjustSettings{
+    [Utilities executeBlock:^{
+        //BALANCE
+        Float32 currentBalance = [Devices getBalanceForDeviceID:[Devices getVolumeControllerDeviceID]];
+        [_balanceSlider setFloatValue:currentBalance];
+        [self changeBalanceIcons:currentBalance];
+        
+    } after:0.01];
+}
+
 
 -(void)populateBandLabelsView{
     [_bandLabelsView setSubviews:@[]];
@@ -77,7 +109,9 @@ NSArray *devices;
 -(void)viewWillAppear{
     [_deleteButton setImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"deleteLight.png"] : [NSImage imageNamed:@"deleteDark.png"]];
     [_saveButton setImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"saveLight.png"] : [NSImage imageNamed:@"saveDark.png"]];
-    [_outputDevicePopup setTitle: [Devices getDeviceNameByID: [EQHost EQEngineExists] ? [EQHost getSelectedOutputDeviceID] : [Devices getCurrentDeviceID]]];
+    
+    [self populateOutputDevicePopup];
+
 }
 
 -(void)viewDidAppear{
@@ -99,6 +133,21 @@ NSArray *devices;
     [_outputDevicePopup addItemsWithTitles: [deviceNames sortedArrayUsingComparator:^NSComparisonResult(NSString *firstString, NSString *secondString) {
         return [[firstString lowercaseString] compare:[secondString lowercaseString]];
     }]];
+    
+    AudioDeviceID selectedDeviceID;
+    if ([EQHost EQEngineExists]) {
+        selectedDeviceID = [EQHost getSelectedOutputDeviceID];
+    } else {
+        selectedDeviceID = [Devices getCurrentDeviceID];
+    }
+    
+    NSString *selectedDeviceName;
+    if (selectedDeviceID == [Devices getEQMacDeviceID]) {
+        selectedDeviceName = BUILTIN_DEVICE_NAME;
+    } else {
+        selectedDeviceName = [Devices getDeviceNameByID: selectedDeviceID];
+    }
+    [_outputDevicePopup setTitle: selectedDeviceName];
 }
 
 #pragma mark -
@@ -185,7 +234,22 @@ NSArray *devices;
         BAND_MODE = @"10";
     }
     [self setBandModeButtonText];
+    [self readjustSize];
     [sliderView setNSliders:[BAND_MODE intValue]];
+}
+
+-(void)readjustSize{
+    if ([BAND_MODE isEqualToString:@"10"]) {
+        NSRect newViewRect = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, defaultWidth, defaultHeight);
+        [self.view setFrame: newViewRect];
+        [_optionsView setFrame:CGRectMake(0, _controlsView.frame.origin.y - _optionsView.frame.size.height, defaultWidth, _optionsView.frame.size.height)];
+    } else if ([BAND_MODE isEqualToString:@"31"]) {
+        NSRect newViewRect = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, defaultWidth * 2, defaultHeight - _optionsView.frame.size.height);
+        [self.view setFrame: newViewRect];
+        [_optionsView setFrame:CGRectMake(defaultWidth, _controlsView.frame.origin.y, defaultWidth, _optionsView.frame.size.height)];
+    }
+    [sliderView setFrame: CGRectMake(sliderView.frame.origin.x, sliderView.frame.origin.y, _bandLabelsView.frame.size.width, sliderView.frame.size.height)];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"readjustPopover" object:nil];
 }
 
 -(void)setSelectedPresetName:(NSString*)name{
@@ -193,7 +257,72 @@ NSArray *devices;
 }
 
 - (IBAction)onOffToggle:(ITSwitch *)sender {
-    NSLog(@"%hhd", [sender checked]);
+    BOOL checked = [sender checked];
+    [_presetsPopup setEnabled: checked];
+    [_saveButton setEnabled:checked];
+    [_deleteButton setEnabled: checked];
+    [sliderView enable: checked];
+
+}
+
+- (IBAction)switchShowDefaultPresets:(NSButton *)sender {
+    [Storage set:[NSNumber numberWithInteger:[sender state]] key:kStorageShowDefaultPresets];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showDefaultPresetsChanged" object:nil];
+}
+
+- (IBAction)checkForUpdates:(id)sender {
+}
+
+- (IBAction)reportBug:(id)sender {
+    [Utilities openBrowserWithURL:REPO_ISSUES_URL];
+}
+
+- (IBAction)getHelp:(id)sender {
+    [Utilities openBrowserWithURL:SUPPORT_URL];
+}
+
+- (IBAction)supportProject:(id)sender{
+    // Open Support Window
+}
+
+- (IBAction)changeBalance:(NSSlider *)sender {
+    Float32 balance = [sender floatValue];
+    [Devices setBalanceForDevice:[Devices getVolumeControllerDeviceID] to:balance];
+    [self changeBalanceIcons: [sender floatValue]];
+}
+
+-(void)changeBalanceIcons:(CGFloat)balance{
+    if (balance == -1) {
+        [_leftSpeaker setImage: [Utilities flipImage: [Utilities isDarkMode] ? [NSImage imageNamed:@"vol4Light.png"] : [NSImage imageNamed:@"vol4Dark.png"]]];
+        [_rightSpeaker setImage: [Utilities isDarkMode] ? [NSImage imageNamed:@"vol1Light.png"] : [NSImage imageNamed:@"vol1Dark.png"]];
+    }else if(balance >-1 && balance <= -0.5){
+        [_leftSpeaker setImage: [Utilities flipImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"vol4Light.png"] : [NSImage imageNamed:@"vol4Dark.png"]]];
+        [_rightSpeaker setImage: [Utilities isDarkMode] ? [NSImage imageNamed:@"vol2Light.png"] : [NSImage imageNamed:@"vol2Dark.png"]];
+        
+    }else if(balance > -0.5 && balance < 0){
+        [_leftSpeaker setImage: [Utilities flipImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"vol4Light.png"] : [NSImage imageNamed:@"vol4Dark.png"]]];
+        [_rightSpeaker setImage: [Utilities isDarkMode] ? [NSImage imageNamed:@"vol3Light.png"] : [NSImage imageNamed:@"vol3Dark.png"]];
+        
+    }else if(balance == 0){
+        [_leftSpeaker setImage: [Utilities flipImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"vol4Light.png"] : [NSImage imageNamed:@"vol4Dark.png"]]];
+        [_rightSpeaker setImage: [Utilities isDarkMode] ? [NSImage imageNamed:@"vol4Light.png"] : [NSImage imageNamed:@"vol4Dark.png"]];
+        
+    }else if(balance >0 && balance <= 0.5){
+        [_leftSpeaker setImage: [Utilities flipImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"vol3Light.png"] : [NSImage imageNamed:@"vol3Dark.png"]]];
+        [_rightSpeaker setImage: [Utilities isDarkMode] ? [NSImage imageNamed:@"vol4Light.png"] : [NSImage imageNamed:@"vol4Dark.png"]];
+        
+    }else if(balance >0.5 && balance < 1){
+        [_leftSpeaker setImage: [Utilities flipImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"vol2Light.png"] : [NSImage imageNamed:@"vol2Dark.png"]]];
+        [_rightSpeaker setImage: [Utilities isDarkMode] ? [NSImage imageNamed:@"vol4Light.png"] : [NSImage imageNamed:@"vol4Dark.png"]];
+    }else{
+        [_leftSpeaker setImage: [Utilities flipImage:[Utilities isDarkMode] ? [NSImage imageNamed:@"vol1Light.png"] : [NSImage imageNamed:@"vol1Dark.png"]]];
+        [_rightSpeaker setImage: [Utilities isDarkMode] ? [NSImage imageNamed:@"vol4Light.png"] : [NSImage imageNamed:@"vol4Dark.png"]];
+    }
+    
+}
+
+- (IBAction)changeLaunchOnStartup:(NSButton*)sender {
+    [Utilities setLaunchOnLogin:[sender state] == NSOnState ? true : false];
 }
 
 - (IBAction)quitApplication:(id)sender {
@@ -210,4 +339,6 @@ NSArray *devices;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"closeApp" object:nil];
     }
 }
+
+
 @end

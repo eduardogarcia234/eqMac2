@@ -32,4 +32,5 @@
 + (void)setLaunchOnLogin:(BOOL)launchOnLogin forBundleURL:(NSURL*) bundleURL;
 + (BOOL)getLaunchOnLogin;
 + (void)setLaunchOnLogin:(BOOL)launchOnLogin;
++(NSImage *)convertImageToGrayScale:(NSImage *)image;
 @end

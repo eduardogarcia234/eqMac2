@@ -15,4 +15,5 @@
 -(void)animateBandsToValues:(NSArray*)values;
 -(void)setNSliders:(int)n;
 -(NSArray*)getBandValues;
+-(void)enable:(BOOL)decision;
 @end

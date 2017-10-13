@@ -60,6 +60,7 @@ typedef enum {
         AudioDeviceID deviceID = [ID intValue];
         if ([self getDeviceTransportTypeByID: deviceID] != kAudioDeviceTransportTypeBuiltIn) {
             NSString *deviceName = [self getEQMacDeviceID] == deviceID ? BUILTIN_DEVICE_NAME : [self getDeviceNameByID: deviceID];
+            NSLog(deviceName);
             [devices addObject:@{
                                  @"id": ID,
                                  @"name": deviceName

@@ -25,6 +25,8 @@ NSColor *drawingColor;
 NSBezierPath *graph;
 NSBezierPath *middleLine;
 NSMutableArray *bandValues;
+BOOL enabled;
+BOOL forceRegenerateAssets;
 
 
 @implementation SliderGraphView
@@ -39,6 +41,8 @@ NSMutableArray *bandValues;
         padding = 5;
         sliderBarWidth = 3;
         dragging = false;
+        enabled = true;
+        forceRegenerateAssets = true;
     }
     return self;
 }
@@ -64,6 +68,10 @@ NSMutableArray *bandValues;
     for (int i = 0; i <= self.bounds.size.height/2/propImage.size.height; i++) {
         NSImage *topBar = [NSImage imageNamed:@"blueLine.png"];
         NSImage *bottomBar = [NSImage imageNamed:@"redLine.png"];
+        if (!enabled) {
+            topBar = [Utilities convertImageToGrayScale: topBar];
+            bottomBar = [Utilities convertImageToGrayScale: bottomBar];
+        }
         [topBar setSize:CGSizeMake([[sliderBarArray lastObject] bounds].origin.x - [[sliderBarArray firstObject] bounds].origin.x, topBar.size.height)];
         [bottomBar setSize:CGSizeMake([[sliderBarArray lastObject] bounds].origin.x - [[sliderBarArray firstObject] bounds].origin.x, bottomBar.size.height)];
         [topBars addObject:topBar];
@@ -75,7 +83,10 @@ NSMutableArray *bandValues;
 
 #pragma mark Drawing
 -(void)drawRect:(NSRect)dirtyRect {
-    if(!knobArray || !sliderBarArray) [self regenerateAssets];
+    if(forceRegenerateAssets || !knobArray || !sliderBarArray) {
+        forceRegenerateAssets = false;
+        [self regenerateAssets];
+    }
     [super drawRect:dirtyRect];
     
     [graph addClip];
@@ -123,61 +134,65 @@ NSMutableArray *bandValues;
 #pragma mark Mouse events
 
 -(void)mouseDragged:(NSEvent*)e{
-    CGPoint point = [self convertPoint:[e locationInWindow] fromView:nil];
-    if(dragging){
-        if(point.y > self.bounds.size.height - knobSize/2 || point.y < knobSize/2) return;
-        NSAffineTransform *transform = [NSAffineTransform transform];
-        CGPoint knobPos = [[knobArray objectAtIndex:sliderSelected] bounds].origin;
-        CGFloat knobPosY = knobPos.y + knobSize/2;
-        CGFloat halfHeight = self.bounds.size.height / 2;
-        CGFloat diffFromKnobToPoint = point.y - knobPosY;
-        CGFloat distFromKnobToPoint = diffFromKnobToPoint >=0 ? diffFromKnobToPoint : -diffFromKnobToPoint;
-        CGFloat diffFromKnobToMiddle = halfHeight - knobPosY;
-        CGFloat distFromKnobToMiddle = diffFromKnobToMiddle >= 0 ? diffFromKnobToMiddle : -diffFromKnobToMiddle;
-        BOOL dirUp = diffFromKnobToPoint > 0;
-        
-        CGFloat yTransform = diffFromKnobToPoint;
-        if(distFromKnobToMiddle < 3){
-            if((dirUp && diffFromKnobToMiddle > 0) || (!dirUp && diffFromKnobToMiddle < 0)){
-                yTransform = diffFromKnobToMiddle;
-                [[NSHapticFeedbackManager defaultPerformer] performFeedbackPattern:NSHapticFeedbackPatternAlignment performanceTime:NSHapticFeedbackPerformanceTimeDefault];
+    if (enabled) {
+        CGPoint point = [self convertPoint:[e locationInWindow] fromView:nil];
+        if(dragging){
+            if(point.y > self.bounds.size.height - knobSize/2 || point.y < knobSize/2) return;
+            NSAffineTransform *transform = [NSAffineTransform transform];
+            CGPoint knobPos = [[knobArray objectAtIndex:sliderSelected] bounds].origin;
+            CGFloat knobPosY = knobPos.y + knobSize/2;
+            CGFloat halfHeight = self.bounds.size.height / 2;
+            CGFloat diffFromKnobToPoint = point.y - knobPosY;
+            CGFloat distFromKnobToPoint = diffFromKnobToPoint >=0 ? diffFromKnobToPoint : -diffFromKnobToPoint;
+            CGFloat diffFromKnobToMiddle = halfHeight - knobPosY;
+            CGFloat distFromKnobToMiddle = diffFromKnobToMiddle >= 0 ? diffFromKnobToMiddle : -diffFromKnobToMiddle;
+            BOOL dirUp = diffFromKnobToPoint > 0;
+            
+            CGFloat yTransform = diffFromKnobToPoint;
+            if(distFromKnobToMiddle < 3){
+                if((dirUp && diffFromKnobToMiddle > 0) || (!dirUp && diffFromKnobToMiddle < 0)){
+                    yTransform = diffFromKnobToMiddle;
+                    [[NSHapticFeedbackManager defaultPerformer] performFeedbackPattern:NSHapticFeedbackPatternAlignment performanceTime:NSHapticFeedbackPerformanceTimeDefault];
+                }
             }
-        }
-        
-        if(round(knobPosY) == round(halfHeight) && distFromKnobToPoint < 7){
-            yTransform = 0;
-        }
-        
-        [transform translateXBy: 0 yBy: yTransform];
-        [[knobArray objectAtIndex:sliderSelected] transformUsingAffineTransform: transform];
-        [self newGraphFromKnobs];
-        [self postNotification];
-        return;
-    }else{
-        sliderSelected = 0;
-        for(NSBezierPath *knob in knobArray){
-            if([knob containsPoint:point]){
-                dragging = true;
-                [self transformKnob:knob toPoint:point  withAdjustment:YES];
-                [self newGraphFromKnobs];
-                [self postNotification];
-                return;
-            }else{
-                sliderSelected++;
+            
+            if(round(knobPosY) == round(halfHeight) && distFromKnobToPoint < 7){
+                yTransform = 0;
             }
-        }
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sliderGraphChanged" object:self];
-}
-
--(void)mouseDown:(NSEvent *)e{
-    CGPoint point = [self convertPoint:[e locationInWindow] fromView:nil];
-    for(NSBezierPath *knob in knobArray){
-        if([knob containsPoint:CGPointMake(point.x, knob.bounds.origin.y + knobSize/2)]){
-            [self transformKnob:knob toPoint:point withAdjustment:YES];
+            
+            [transform translateXBy: 0 yBy: yTransform];
+            [[knobArray objectAtIndex:sliderSelected] transformUsingAffineTransform: transform];
             [self newGraphFromKnobs];
             [self postNotification];
             return;
+        }else{
+            sliderSelected = 0;
+            for(NSBezierPath *knob in knobArray){
+                if([knob containsPoint:point]){
+                    dragging = true;
+                    [self transformKnob:knob toPoint:point  withAdjustment:YES];
+                    [self newGraphFromKnobs];
+                    [self postNotification];
+                    return;
+                }else{
+                    sliderSelected++;
+                }
+            }
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"sliderGraphChanged" object:self];
+    }
+}
+
+-(void)mouseDown:(NSEvent *)e{
+    if (enabled) {
+        CGPoint point = [self convertPoint:[e locationInWindow] fromView:nil];
+        for(NSBezierPath *knob in knobArray){
+            if([knob containsPoint:CGPointMake(point.x, knob.bounds.origin.y + knobSize/2)]){
+                [self transformKnob:knob toPoint:point withAdjustment:YES];
+                [self newGraphFromKnobs];
+                [self postNotification];
+                return;
+            }
         }
     }
 }
@@ -303,13 +318,25 @@ NSMutableArray *bandValues;
     
 }
 
+-(void)enable:(BOOL)decision{
+    enabled = decision;
+    forceRegenerateAssets = YES;
+    [self forceRedraw];
+}
+
 -(NSArray*)getBandValues{
     return bandValues;
 }
 
 -(void)setNSliders:(int)n{
     nSliders = n;
-    [self regenerateAssets];
+    forceRegenerateAssets = YES;
+    [self forceRedraw];
+}
+
+-(void)forceRedraw{
+    [self setHidden: YES];
+    [self setHidden: NO];
 }
 
 @end

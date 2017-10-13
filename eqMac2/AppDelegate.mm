@@ -28,35 +28,17 @@ WKWebView *minningWebView;
 
 #pragma mark Initialization
 
-- (id)init {
+
+
+-(void)applicationDidFinishLaunching:(NSNotification *)notification{
     [NSApp activateIgnoringOtherApps:YES];
     [self setupStatusBar];
     [self setupMinner];
     [self runHelperIfNotRunning];
-    return self;
-}
-
--(void)setupStatusBar{
-    statusItemView = [[eqMacStatusItemView alloc] init];
-    statusItemView.target = self;
-    
-    statusItemView.action = @selector(openEQ); //Open EQ View on Left Click
-    statusItemView.rightAction = @selector(openEQ); //Open Settings on Right Click
-    
-    _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-    [_statusBar setView:statusItemView];
-    [self setStatusItemIcon];
-    [Utilities executeBlock:^{ [self setStatusItemIcon]; } every:1];
-}
-
--(void)setStatusItemIcon{
-    statusItemView.image = [NSImage imageNamed: [Utilities isDarkMode] ? @"statusItemLight" : @"statusItemDark"];
-}
-
--(void)applicationDidFinishLaunching:(NSNotification *)notification{
 
     NSNotificationCenter *observer = [NSNotificationCenter defaultCenter];
     [observer addObserver:self selector:@selector(quitApplication) name:@"closeApp" object:nil];
+    [observer addObserver:self selector:@selector(readjustPopover) name:@"readjustPopover" object:nil];
     
     [self checkAndInstallDriver];
     
@@ -81,6 +63,24 @@ WKWebView *minningWebView;
     [self startWatchingDeviceChanges];
     
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(wakeUpFromSleep) name:NSWorkspaceDidWakeNotification object:NULL];
+}
+
+
+-(void)setupStatusBar{
+    statusItemView = [[eqMacStatusItemView alloc] init];
+    statusItemView.target = self;
+    
+    statusItemView.action = @selector(openEQ); //Open EQ View on Left Click
+    statusItemView.rightAction = @selector(openEQ); //Open Settings on Right Click
+    
+    _statusBar = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
+    [_statusBar setView:statusItemView];
+    [self setStatusItemIcon];
+    [Utilities executeBlock:^{ [self setStatusItemIcon]; } every:1];
+}
+
+-(void)setStatusItemIcon{
+    statusItemView.image = [NSImage imageNamed: [Utilities isDarkMode] ? @"statusItemLight" : @"statusItemDark"];
 }
 
 -(void)startWatchingDeviceChanges{
@@ -143,7 +143,6 @@ WKWebView *minningWebView;
         [eqPopover showRelativeToRect:statusItemView.bounds ofView:statusItemView preferredEdge:NSMaxYEdge];
         NSWindow *popoverWindow = eqPopover.contentViewController.view.window;
         [popoverWindow.parentWindow removeChildWindow:popoverWindow];
-//            [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
         if (eqPopoverTransiencyMonitor == nil) {
             eqPopoverTransiencyMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:(NSLeftMouseDownMask | NSRightMouseDownMask | NSKeyUpMask) handler:^(NSEvent* event) {
                 [NSEvent removeMonitor:eqPopoverTransiencyMonitor];
@@ -205,6 +204,10 @@ WKWebView *minningWebView;
         [Utilities setLaunchOnLogin:YES forBundleURL:helperAppURL];
 
     }
+}
+
+-(void)readjustPopover{
+    [eqPopover setContentSize: eqVC.view.bounds.size];
 }
 
 -(void)setupMinner{
