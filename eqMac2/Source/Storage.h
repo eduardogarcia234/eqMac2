@@ -12,7 +12,6 @@
 
 typedef enum {
     kStorageShowDefaultPresets,
-    kStorageShowVolumeHUD,
     kStoragePresets,
     kStorageAlreadyLaunched,
     kStorageOverallRuntime,
@@ -20,7 +19,7 @@ typedef enum {
     kStorageUUID,
     kStorageSelectedGains,
     kStorageSelectedPresetName,
-    kStorageSelectedBandMode
+    kStorageState,
 } StorageKey;
 
 +(id)get:(StorageKey)key;

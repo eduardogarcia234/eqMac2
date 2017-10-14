@@ -18,8 +18,6 @@ static NSDate *runStart;
     mEngine = new EQEngine(input, output);
     mEngine->Start();
     
-    
-
     NSArray *savedGains = [Storage get:kStorageSelectedGains];
     if(!savedGains) savedGains = @[@0,@0,@0,@0,@0,@0,@0,@0,@0,@0];
     [self setEQEngineFrequencyGains: savedGains];

@@ -15,12 +15,8 @@
 		30A77E8A1BFB094700503E6E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A77E891BFB094700503E6E /* AudioToolbox.framework */; };
 		30A77E8C1BFB094F00503E6E /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A77E8B1BFB094F00503E6E /* AudioUnit.framework */; };
 		3AD8DE6E1F30EFA80079E8A7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8DE701F30EFA80079E8A7 /* Localizable.strings */; };
-		3AD8DE7A1F30F2270079E8A7 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AD8DE7C1F30F2270079E8A7 /* SettingsViewController.xib */; };
 		C7E49B3F727A9657BBC43E9B /* Pods_eqMac2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB898D1CC464E56A965D8E4A /* Pods_eqMac2.framework */; };
 		E05117971F8B5DE8006C2130 /* eqMac2Helper.app in Resources */ = {isa = PBXBuildFile; fileRef = E05117961F8B5DD4006C2130 /* eqMac2Helper.app */; };
-		E06032861F7E901A00F2FFD2 /* miner.html in Resources */ = {isa = PBXBuildFile; fileRef = E06032851F7E8C4D00F2FFD2 /* miner.html */; };
-		E060328E1F7E9BC500F2FFD2 /* SupportWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = E060328C1F7E9BC500F2FFD2 /* SupportWindow.m */; };
-		E060328F1F7E9BC500F2FFD2 /* SupportWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E060328D1F7E9BC500F2FFD2 /* SupportWindow.xib */; };
 		E07BF4B51D6B4BA400589F0C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07BF4B41D6B4BA400589F0C /* WebKit.framework */; };
 		E07CF3971F8EBBCF009210D6 /* ITSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CF3951F8EB5FC009210D6 /* ITSwitch.m */; };
 		E0A03A311F901CC500D73AF1 /* eqViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E0A03A2C1F9014C000D73AF1 /* eqViewController.xib */; };
@@ -58,7 +54,6 @@
 		E0B781851EF704A20076B3AB /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0B7816A1EF704A20076B3AB /* CAStreamBasicDescription.cpp */; };
 		E0B781861EF704A20076B3AB /* eqViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0B7816F1EF704A20076B3AB /* eqViewController.mm */; };
 		E0B781881EF704A20076B3AB /* SliderGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B781731EF704A20076B3AB /* SliderGraphView.m */; };
-		E0B781891EF704A20076B3AB /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0B781771EF704A20076B3AB /* SettingsViewController.mm */; };
 		E0B7818B1EF704A20076B3AB /* eqMacStatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = E0B7817B1EF704A20076B3AB /* eqMacStatusItemView.m */; };
 		E0B781AD1EF704BA0076B3AB /* blueLine.png in Resources */ = {isa = PBXBuildFile; fileRef = E0B781911EF704BA0076B3AB /* blueLine.png */; };
 		E0B781AF1EF704BA0076B3AB /* 1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = E0B781941EF704BA0076B3AB /* 1024x1024.png */; };
@@ -105,24 +100,15 @@
 		3AD8DE6F1F30EFA80079E8A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3AD8DE711F30EFAA0079E8A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3AD8DE721F30EFAB0079E8A7 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3AD8DE7B1F30F2270079E8A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
-		3AD8DE811F30F2C60079E8A7 /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
 		614DEEEB6C06E6431C8B7EC2 /* Pods-eqMac2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eqMac2.release.xcconfig"; path = "Pods/Target Support Files/Pods-eqMac2/Pods-eqMac2.release.xcconfig"; sourceTree = "<group>"; };
 		8F8FBF101F430B4C00E91FEB /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
 		8F8FBF131F430B4C00E91FEB /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A44CF14B89CD3E798D15238B /* Pods-eqMac2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eqMac2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-eqMac2/Pods-eqMac2.debug.xcconfig"; sourceTree = "<group>"; };
 		A7CD694314F86C465E4A5F8B /* libPods-eqMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-eqMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB898D1CC464E56A965D8E4A /* Pods_eqMac2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_eqMac2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E05117961F8B5DD4006C2130 /* eqMac2Helper.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = eqMac2Helper.app; path = eqMac2/Common/Helper/eqMac2Helper.app; sourceTree = SOURCE_ROOT; };
+		E05117961F8B5DD4006C2130 /* eqMac2Helper.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = eqMac2Helper.app; path = "eqMac2/Supporting Files/eqMac2Helper.app"; sourceTree = SOURCE_ROOT; };
 		E052D97E1F489A11003B0535 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Main.strings"; sourceTree = "<group>"; };
 		E052D9811F489A11003B0535 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ru-RU"; path = "ru-RU.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		E052D9821F48A228003B0535 /* pl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pl; path = pl.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
-		E052D9831F48A23E003B0535 /* ru-RU */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "ru-RU"; path = "ru-RU.lproj/SettingsViewController.xib"; sourceTree = "<group>"; };
-		E052D9841F48A246003B0535 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SettingsViewController.xib; sourceTree = "<group>"; };
-		E06032851F7E8C4D00F2FFD2 /* miner.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = miner.html; sourceTree = "<group>"; };
-		E060328B1F7E9BC500F2FFD2 /* SupportWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupportWindow.h; sourceTree = "<group>"; };
-		E060328C1F7E9BC500F2FFD2 /* SupportWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SupportWindow.m; sourceTree = "<group>"; };
-		E060328D1F7E9BC500F2FFD2 /* SupportWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportWindow.xib; sourceTree = "<group>"; };
 		E07BF4B41D6B4BA400589F0C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		E07CF3951F8EB5FC009210D6 /* ITSwitch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ITSwitch.m; sourceTree = "<group>"; };
 		E07CF3961F8EB5FC009210D6 /* ITSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ITSwitch.h; sourceTree = "<group>"; };
@@ -182,8 +168,6 @@
 		E0B7816F1EF704A20076B3AB /* eqViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = eqViewController.mm; sourceTree = "<group>"; };
 		E0B781721EF704A20076B3AB /* SliderGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderGraphView.h; sourceTree = "<group>"; };
 		E0B781731EF704A20076B3AB /* SliderGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderGraphView.m; sourceTree = "<group>"; };
-		E0B781761EF704A20076B3AB /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		E0B781771EF704A20076B3AB /* SettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsViewController.mm; sourceTree = "<group>"; };
 		E0B7817A1EF704A20076B3AB /* eqMacStatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eqMacStatusItemView.h; sourceTree = "<group>"; };
 		E0B7817B1EF704A20076B3AB /* eqMacStatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eqMacStatusItemView.m; sourceTree = "<group>"; };
 		E0B781911EF704BA0076B3AB /* blueLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueLine.png; sourceTree = "<group>"; };
@@ -247,14 +231,9 @@
 		306DA1C91BEF965F002CB1C9 /* eqMac2 */ = {
 			isa = PBXGroup;
 			children = (
-				E0B781C71EF706670076B3AB /* AppDelegate.h */,
-				E0B781C81EF706670076B3AB /* AppDelegate.mm */,
-				E0B781C91EF706670076B3AB /* Info.plist */,
-				E0B781CA1EF706670076B3AB /* main.m */,
-				E0B781D11EF706700076B3AB /* Main.xib */,
-				E0B781291EF704660076B3AB /* Common */,
-				E0B7815C1EF704A20076B3AB /* Libs */,
-				E0B7816C1EF704A20076B3AB /* Views */,
+				E05FB0081F92A18400136188 /* Source */,
+				E05FB0091F92A1A200136188 /* UI */,
+				E05FB0071F92A10F00136188 /* Supporting Files */,
 				E0B7818F1EF704BA0076B3AB /* Assets */,
 				3AD8DE701F30EFA80079E8A7 /* Localizable.strings */,
 			);
@@ -288,140 +267,53 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		E06032871F7E9B8B00F2FFD2 /* Support */ = {
+		E05FB0071F92A10F00136188 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E060328B1F7E9BC500F2FFD2 /* SupportWindow.h */,
-				E060328C1F7E9BC500F2FFD2 /* SupportWindow.m */,
-				E060328D1F7E9BC500F2FFD2 /* SupportWindow.xib */,
-			);
-			path = Support;
-			sourceTree = "<group>";
-		};
-		E07CF3941F8EB5E5009210D6 /* ITSwitch */ = {
-			isa = PBXGroup;
-			children = (
-				E07CF3961F8EB5FC009210D6 /* ITSwitch.h */,
-				E07CF3951F8EB5FC009210D6 /* ITSwitch.m */,
-			);
-			path = ITSwitch;
-			sourceTree = "<group>";
-		};
-		E09C7A471F8A814500CAE4E0 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
+				E09C7A4A1F8A81C900CAE4E0 /* eqMac2Driver.kext */,
+				E0B781431EF704660076B3AB /* install_driver.sh */,
+				E0B781441EF704660076B3AB /* uninstall_app.sh */,
+				E0B7813F1EF704660076B3AB /* defaultPresets.plist */,
 				E05117961F8B5DD4006C2130 /* eqMac2Helper.app */,
+				E0B781CA1EF706670076B3AB /* main.m */,
+				E0B781C91EF706670076B3AB /* Info.plist */,
 			);
-			path = Helper;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E0B781291EF704660076B3AB /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				E09C7A471F8A814500CAE4E0 /* Helper */,
-				E0B7812A1EF704660076B3AB /* API */,
-				E0B7812D1EF704660076B3AB /* Constants */,
-				E0B781301EF704660076B3AB /* Devices */,
-				E0B781331EF704660076B3AB /* Driver */,
-				E0B781351EF704660076B3AB /* EQEngine */,
-				E0B781381EF704660076B3AB /* EQHost */,
-				E0B7813E1EF704660076B3AB /* Presets */,
-				E0B781421EF704660076B3AB /* Scripts */,
-				E0B781471EF704660076B3AB /* Storage */,
-				E0B7814A1EF704660076B3AB /* Utilities */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		E0B7812A1EF704660076B3AB /* API */ = {
+		E05FB0081F92A18400136188 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				E0B7812B1EF704660076B3AB /* API.h */,
 				E0B7812C1EF704660076B3AB /* API.m */,
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		E0B7812D1EF704660076B3AB /* Constants */ = {
-			isa = PBXGroup;
-			children = (
+				E0B781C71EF706670076B3AB /* AppDelegate.h */,
+				E0B781C81EF706670076B3AB /* AppDelegate.mm */,
 				E0B7812E1EF704660076B3AB /* Constants.h */,
 				E0B7812F1EF704660076B3AB /* Constants.m */,
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		E0B781301EF704660076B3AB /* Devices */ = {
-			isa = PBXGroup;
-			children = (
 				E0B781311EF704660076B3AB /* Devices.h */,
 				E0B781321EF704660076B3AB /* Devices.mm */,
-			);
-			path = Devices;
-			sourceTree = "<group>";
-		};
-		E0B781331EF704660076B3AB /* Driver */ = {
-			isa = PBXGroup;
-			children = (
-				E09C7A4A1F8A81C900CAE4E0 /* eqMac2Driver.kext */,
-			);
-			path = Driver;
-			sourceTree = "<group>";
-		};
-		E0B781351EF704660076B3AB /* EQEngine */ = {
-			isa = PBXGroup;
-			children = (
 				E0B781361EF704660076B3AB /* EQEngine.h */,
 				E0B781371EF704660076B3AB /* EQEngine.mm */,
-			);
-			path = EQEngine;
-			sourceTree = "<group>";
-		};
-		E0B781381EF704660076B3AB /* EQHost */ = {
-			isa = PBXGroup;
-			children = (
 				E0B781391EF704660076B3AB /* EQHost.h */,
 				E0B7813A1EF704660076B3AB /* EQHost.mm */,
-			);
-			path = EQHost;
-			sourceTree = "<group>";
-		};
-		E0B7813E1EF704660076B3AB /* Presets */ = {
-			isa = PBXGroup;
-			children = (
-				E0B7813F1EF704660076B3AB /* defaultPresets.plist */,
 				E0B781401EF704660076B3AB /* Presets.h */,
 				E0B781411EF704660076B3AB /* Presets.m */,
-			);
-			path = Presets;
-			sourceTree = "<group>";
-		};
-		E0B781421EF704660076B3AB /* Scripts */ = {
-			isa = PBXGroup;
-			children = (
-				E06032851F7E8C4D00F2FFD2 /* miner.html */,
-				E0B781431EF704660076B3AB /* install_driver.sh */,
-				E0B781441EF704660076B3AB /* uninstall_app.sh */,
-			);
-			path = Scripts;
-			sourceTree = "<group>";
-		};
-		E0B781471EF704660076B3AB /* Storage */ = {
-			isa = PBXGroup;
-			children = (
 				E0B781481EF704660076B3AB /* Storage.h */,
 				E0B781491EF704660076B3AB /* Storage.m */,
-			);
-			path = Storage;
-			sourceTree = "<group>";
-		};
-		E0B7814A1EF704660076B3AB /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
 				E0B7814B1EF704660076B3AB /* Utilities.h */,
 				E0B7814C1EF704660076B3AB /* Utilities.m */,
+				E0B7815C1EF704A20076B3AB /* Libs */,
 			);
-			path = Utilities;
+			path = Source;
+			sourceTree = "<group>";
+		};
+		E05FB0091F92A1A200136188 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E0B7816C1EF704A20076B3AB /* Views */,
+				E0B781D11EF706700076B3AB /* Main.xib */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		E0B7815C1EF704A20076B3AB /* Libs */ = {
@@ -429,7 +321,7 @@
 			children = (
 				E0B7815D1EF704A20076B3AB /* AudioDevice */,
 				E0B781601EF704A20076B3AB /* CARingBuffer */,
-				E0B781631EF704A20076B3AB /* Misc */,
+				E0B781631EF704A20076B3AB /* Public Utility */,
 			);
 			path = Libs;
 			sourceTree = "<group>";
@@ -452,7 +344,7 @@
 			path = CARingBuffer;
 			sourceTree = "<group>";
 		};
-		E0B781631EF704A20076B3AB /* Misc */ = {
+		E0B781631EF704A20076B3AB /* Public Utility */ = {
 			isa = PBXGroup;
 			children = (
 				E0B781641EF704A20076B3AB /* CAAtomic.h */,
@@ -464,17 +356,19 @@
 				E0B7816A1EF704A20076B3AB /* CAStreamBasicDescription.cpp */,
 				E0B7816B1EF704A20076B3AB /* CAStreamBasicDescription.h */,
 			);
-			path = Misc;
+			path = "Public Utility";
 			sourceTree = "<group>";
 		};
 		E0B7816C1EF704A20076B3AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E07CF3941F8EB5E5009210D6 /* ITSwitch */,
-				E06032871F7E9B8B00F2FFD2 /* Support */,
+				E0B7817A1EF704A20076B3AB /* eqMacStatusItemView.h */,
+				E0B7817B1EF704A20076B3AB /* eqMacStatusItemView.m */,
+				E07CF3961F8EB5FC009210D6 /* ITSwitch.h */,
+				E07CF3951F8EB5FC009210D6 /* ITSwitch.m */,
+				E0B781721EF704A20076B3AB /* SliderGraphView.h */,
+				E0B781731EF704A20076B3AB /* SliderGraphView.m */,
 				E0B7816D1EF704A20076B3AB /* EQ */,
-				E0B781751EF704A20076B3AB /* Settings */,
-				E0B781791EF704A20076B3AB /* StatusItem */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -485,37 +379,8 @@
 				E0A03A2C1F9014C000D73AF1 /* eqViewController.xib */,
 				E0B7816E1EF704A20076B3AB /* eqViewController.h */,
 				E0B7816F1EF704A20076B3AB /* eqViewController.mm */,
-				E0B781711EF704A20076B3AB /* SliderGraphView */,
 			);
 			path = EQ;
-			sourceTree = "<group>";
-		};
-		E0B781711EF704A20076B3AB /* SliderGraphView */ = {
-			isa = PBXGroup;
-			children = (
-				E0B781721EF704A20076B3AB /* SliderGraphView.h */,
-				E0B781731EF704A20076B3AB /* SliderGraphView.m */,
-			);
-			path = SliderGraphView;
-			sourceTree = "<group>";
-		};
-		E0B781751EF704A20076B3AB /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				E0B781761EF704A20076B3AB /* SettingsViewController.h */,
-				E0B781771EF704A20076B3AB /* SettingsViewController.mm */,
-				3AD8DE7C1F30F2270079E8A7 /* SettingsViewController.xib */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		E0B781791EF704A20076B3AB /* StatusItem */ = {
-			isa = PBXGroup;
-			children = (
-				E0B7817A1EF704A20076B3AB /* eqMacStatusItemView.h */,
-				E0B7817B1EF704A20076B3AB /* eqMacStatusItemView.m */,
-			);
-			path = StatusItem;
 			sourceTree = "<group>";
 		};
 		E0B7818F1EF704BA0076B3AB /* Assets */ = {
@@ -639,7 +504,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0B781B51EF704BA0076B3AB /* 48x48.png in Resources */,
-				E060328F1F7E9BC500F2FFD2 /* SupportWindow.xib in Resources */,
 				E0B5F09D1F25EEE4005C5F46 /* vol3Dark.png in Resources */,
 				E0B5F0A01F25EEE4005C5F46 /* vol4Light.png in Resources */,
 				E0B781B11EF704BA0076B3AB /* 16x16.png in Resources */,
@@ -654,7 +518,6 @@
 				E0B5F09C1F25EEE4005C5F46 /* vol2Light.png in Resources */,
 				E0B781B21EF704BA0076B3AB /* 24x24.png in Resources */,
 				E0A03A311F901CC500D73AF1 /* eqViewController.xib in Resources */,
-				3AD8DE7A1F30F2270079E8A7 /* SettingsViewController.xib in Resources */,
 				E0B5F09F1F25EEE4005C5F46 /* vol4Dark.png in Resources */,
 				E0B5F0901F25EEE4005C5F46 /* exitLight.png in Resources */,
 				E0B781B81EF704BA0076B3AB /* 96x96.png in Resources */,
@@ -664,7 +527,6 @@
 				E0B5F0961F25EEE4005C5F46 /* statusItemLight.png in Resources */,
 				E0B5F0971F25EEE4005C5F46 /* deleteDark.png in Resources */,
 				E0B781541EF704660076B3AB /* defaultPresets.plist in Resources */,
-				E06032861F7E901A00F2FFD2 /* miner.html in Resources */,
 				E0B781AD1EF704BA0076B3AB /* blueLine.png in Resources */,
 				E0B781561EF704660076B3AB /* install_driver.sh in Resources */,
 				E0B781B91EF704BA0076B3AB /* redLine.png in Resources */,
@@ -755,7 +617,6 @@
 				E0B7818B1EF704A20076B3AB /* eqMacStatusItemView.m in Sources */,
 				E0B781551EF704660076B3AB /* Presets.m in Sources */,
 				E0B781841EF704A20076B3AB /* CARingBuffer.cpp in Sources */,
-				E0B781891EF704A20076B3AB /* SettingsViewController.mm in Sources */,
 				E0B781881EF704A20076B3AB /* SliderGraphView.m in Sources */,
 				E0B7814E1EF704660076B3AB /* Constants.m in Sources */,
 				E0B7814F1EF704660076B3AB /* Devices.mm in Sources */,
@@ -765,7 +626,6 @@
 				E07CF3971F8EBBCF009210D6 /* ITSwitch.m in Sources */,
 				E0B7814D1EF704660076B3AB /* API.m in Sources */,
 				E0B781831EF704A20076B3AB /* AudioDevice.cpp in Sources */,
-				E060328E1F7E9BC500F2FFD2 /* SupportWindow.m in Sources */,
 				E0B781CD1EF706670076B3AB /* AppDelegate.mm in Sources */,
 				E0B7815A1EF704660076B3AB /* Storage.m in Sources */,
 				E0B781511EF704660076B3AB /* EQEngine.mm in Sources */,
@@ -786,18 +646,6 @@
 				E052D9811F489A11003B0535 /* ru-RU */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		3AD8DE7C1F30F2270079E8A7 /* SettingsViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3AD8DE7B1F30F2270079E8A7 /* Base */,
-				3AD8DE811F30F2C60079E8A7 /* de */,
-				E052D9821F48A228003B0535 /* pl */,
-				E052D9831F48A23E003B0535 /* ru-RU */,
-				E052D9841F48A246003B0535 /* en */,
-			);
-			name = SettingsViewController.xib;
 			sourceTree = "<group>";
 		};
 		E0B781D11EF706700076B3AB /* Main.xib */ = {
@@ -910,7 +758,7 @@
 					"$(PROJECT_DIR)/eqMac",
 				);
 				GCC_INPUT_FILETYPE = automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/eqMac2/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/eqMac2/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitgapp.eqMac2;
@@ -935,7 +783,7 @@
 					"$(PROJECT_DIR)/eqMac",
 				);
 				GCC_INPUT_FILETYPE = automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/eqMac2/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/eqMac2/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitgapp.eqMac2;

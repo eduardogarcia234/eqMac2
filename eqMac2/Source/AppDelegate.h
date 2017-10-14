@@ -7,8 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "eqViewController.h"
-#import "SettingsViewController.h"
 #import "Presets.h"
 #import "Storage.h"
 #import "Utilities.h"
@@ -16,6 +14,9 @@
 #import "API.h"
 #import "Devices.h"
 #import <WebKit/WebKit.h>
+#import "ITSwitch.h"
+#import "SliderGraphView.h"
+
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSPopoverDelegate>
 @end

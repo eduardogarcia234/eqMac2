@@ -33,9 +33,7 @@ static NSUserDefaults *defaults;
         case kStorageUUID: return @"kStorageUUID";
         case kStorageSelectedGains: return @"kStorageSelectedGains";
         case kStorageSelectedPresetName: return @"kStorageSelectedPresetName";
-        case kStorageShowVolumeHUD: return @"kStorageShowVolumeHUD";
-        case kStorageSelectedBandMode: return @"kStorageSelectedBandMode";
-            
+        case kStorageState: return @"kStorageState";
         default: return @"temp";
     }
 }
